@@ -1,0 +1,93 @@
+# =============================================================================
+#  LaTeX build artifacts
+# =============================================================================
+*.aux
+*.lof
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.lb
+
+# Bibliography
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.brf
+*.run.xml
+
+# Build files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# Beamer
+*.nav
+*.pre
+*.snm
+*.vrb
+
+# Glossaries
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.glsdefs
+*.lzo
+*.lzs
+*.ist
+*.xdy
+
+# Index
+*.idx
+*.ilg
+*.ind
+
+# Listings
+*.lol
+
+# Algorithms
+*.loa
+
+# Logs
+*.log
+
+# pdfTeX / XeTeX / LuaTeX
+*.dvi
+*.xdv
+
+# Generated PDF (built artifact — keep source only)
+main.pdf
+
+# =============================================================================
+#  Editor / OS
+# =============================================================================
+.vscode/
+.idea/
+
+# OneDrive / Windows
+Thumbs.db
+desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+
+# Backups & swap
+*~
+*.bak
+*.swp
+*.tmp

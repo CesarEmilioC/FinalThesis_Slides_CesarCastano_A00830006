@@ -1,0 +1,180 @@
+% =============================================================================
+%  Section 3 -- Experimentation & Results
+% =============================================================================
+
+\section{Experimentation \& Results}
+
+% --- Section divider --------------------------------------------------------
+\sectiondivider{Experimentation \& Results}{Five experiments, two sensitivity sweeps, one headline finding}
+
+% --- LSTM Evolution Test01 -> Test03 ----------------------------------------
+\begin{frame}{LSTM evolution: Test01 $\rightarrow$ Test02 $\rightarrow$ Test03}
+\setlength{\tabcolsep}{4pt}
+\small
+\begin{center}
+\begin{tabular}{l c c c}
+\toprule
+ & \textbf{Test01} & \textbf{Test02} & \textbf{Test03 (final)} \\
+\midrule
+\textbf{Dataset}        & 280 clips, 5 players & 484 clips, 6 players & 484 clips, 6 players \\
+\textbf{Output classes} & 10 (raw grades)      & 5 (grouped)          & 5 (grouped) \\
+\textbf{Joints / feats} & 3 / 6                & 4 / 8                & 4 / 8 \\
+\textbf{Interpolation}  & --                   & linear               & linear \\
+\textbf{Class weights}  & --                   & balanced             & balanced \\
+\textbf{Regularization} & --                   & --                   & L2 ($10^{-4}$), dropout 0.40/0.35 \\
+\textbf{Augmentation}   & --                   & --                   & Gaussian noise $\sigma\!=\!0.02$, $\times 2$ \\
+\midrule
+\textbf{Accuracy}       & 16.1\%               & 24.7\%               & \textbf{29.9\%} \\
+\textbf{Macro F1}       & 0.09                 & 0.23                 & 0.23 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\begin{infoBox}\small
+\textbf{Largest gain ($+8.6$ pp)} came from \alert{pipeline changes} (5-class, interpolation, class weights) -- not from architecture.
+\end{infoBox}
+\end{frame}
+
+% --- Comparison of 3 models -------------------------------------------------
+\begin{frame}{Comparison of three temporal models}
+\setlength{\tabcolsep}{6pt}
+\small
+\begin{center}
+\begin{tabular}{l c c c}
+\toprule
+\textbf{Metric} & \textbf{BiLSTM (Test03)} & \textbf{BiGRU (Test01)} & \textbf{TCN (Test01)} \\
+\midrule
+Architecture           & BiLSTM 64/32 & BiGRU 64/32 & 3$\times$ Conv1D \\
+Test set               & 97           & 97          & 97 \\
+\midrule
+\textbf{Accuracy}      & \textbf{29.9\%} & 26.8\%   & \textbf{29.9\%} \\
+\textbf{Macro F1}      & 0.23         & 0.21        & \textbf{0.24} \\
+\textbf{Weighted F1}   & \textbf{0.30} & 0.26       & \textbf{0.30} \\
+Spearman $\rho$ ($p$)  & 0.03 (0.76)  & 0.12 (0.26) & 0.14 (0.18) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\begin{itemize}\small
+    \item BiLSTM and TCN tied on accuracy; TCN slightly higher macro F1 (better on \emph{Excellent}).
+    \item BiGRU trails by 3.1 pp -- merged gating loses temporal information.
+    \item All three overfit severely: training $\sim\!100\%$ vs.\ test $\sim\!30\%$ $\Rightarrow$ data bottleneck.
+\end{itemize}
+\end{frame}
+
+% --- BiLSTM Test03 confusion matrix -----------------------------------------
+\begin{frame}{Final BiLSTM (Test03): confusion matrix}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.55\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/lstm_test03_confusion.pdf}
+\end{column}
+\begin{column}{0.43\textwidth}\small
+\textbf{\color{tecdark}Observations:}
+\begin{itemize}
+    \item Diagonal mass on \alert{Medium} (10/26) and \alert{High} (14/35).
+    \item \emph{Very Low} (8 samples): zero recall -- spread to Low / Medium.
+    \item Off-diagonal mass concentrates on \alert{adjacent} classes $\Rightarrow$ ordinal confusion.
+    \item No catastrophic Excellent$\leftrightarrow$Very Low confusion: the model has learned the gross quality gradient.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Sensitivity: Loss x Optimizer ------------------------------------------
+\begin{frame}{Sensitivity~1: Loss function $\times$ Optimizer (BiLSTM)}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.50\textwidth}
+\setlength{\tabcolsep}{4pt}\scriptsize
+\begin{center}
+\begin{tabular}{l l c c c}
+\toprule
+\textbf{Loss} & \textbf{Opt.} & \textbf{Acc.} & \textbf{F1$_m$} & \textbf{$\rho$ ($p$)} \\
+\midrule
+XEnt    & Adam (baseline) & 26.8\% & 0.21 & $-$0.02 (0.85) \\
+\rowcolor{tecblue!10}
+\textbf{XEnt} & \textbf{SGD}(0.9) & \textbf{35.1\%} & \textbf{0.30} & \textbf{0.19 (0.06)} \\
+MSE     & Adam            & 35.1\% & 0.27 & 0.10 (0.31) \\
+MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\textbf{\color{tecdark}Key finding:}
+\begin{itemize}\scriptsize
+    \item \alert{XEnt + SGD}: $+8.3$~pp accuracy, $+0.09$ F1, $\rho\!=\!0.19$ ($p\!=\!0.06$) -- strongest single BiLSTM run.
+    \item Adam overfits faster on 484 clips; SGD's smoother updates win.
+    \item Combining both changes (MSE + SGD) \emph{does not} stack.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/sensitivity_overlay.pdf}\\
+{\scriptsize\itshape Validation-loss overlay -- SGD descends slower but reaches a lower plateau.}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Sensitivity: Split sweep -----------------------------------------------
+\begin{frame}{Sensitivity~2: Train/Test split ratio (BiLSTM)}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.50\textwidth}
+\setlength{\tabcolsep}{4pt}\scriptsize
+\begin{center}
+\begin{tabular}{c c c c c}
+\toprule
+\textbf{Train frac.} & \textbf{Train / Test} & \textbf{Acc.} & \textbf{F1$_m$} & \textbf{$\rho$ ($p$)} \\
+\midrule
+0.50 & 242 / 242 & 35.5\% & 0.29 & \textbf{0.22 ($<\!0.001$)} \\
+\rowcolor{tecblue!10}
+\textbf{0.60} & 290 / 194 & \textbf{36.1\%} & 0.28 & \textbf{0.23 (0.001)} \\
+0.70 & 338 / 146 & 34.2\% & 0.28 & 0.14 (0.09) \\
+0.80\! (base) & 387 / 97 & 26.8\% & 0.21 & $-$0.02 (0.85) \\
+0.90 & 435 / 49  & 28.6\% & 0.24 & 0.05 (0.71) \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\textbf{\color{tecdark}Counter-intuitive:}
+\begin{itemize}\scriptsize
+    \item Smaller training fractions \alert{win}.
+    \item 0.60: \textbf{36.1\%}, $\rho\!=\!0.23$, $p\!=\!0.001$ -- the \emph{only} BiLSTM run with statistically significant $\rho$.
+    \item Augmentation ($\times 2$) inflates training redundancy beyond what 100 epochs can absorb.
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/split_trend.pdf}\\
+{\scriptsize\itshape Accuracy and macro F1 vs.\ training fraction.}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Headline finding -------------------------------------------------------
+\begin{frame}{Headline finding: \alert{method is data-limited, not method-limited}}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.46\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/split_confusion_06.pdf}\\
+{\scriptsize\itshape Confusion matrix at the 60/40 split -- broader coverage of minority classes.}
+\end{column}
+\begin{column}{0.52\textwidth}
+\begin{alertblock}{The +9 pp jump}
+\small Same architecture, same labels, same hyperparameters.\\
+Only the train/test fraction changed.\\
+\[
+26.8\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho=0.23,\; p=0.001
+\]
+\end{alertblock}
+\vspace{4pt}
+\begin{itemize}\small
+    \item If the architecture or pipeline were the binding constraint, performance would be \alert{flat across splits}.
+    \item The sensitivity of test metrics to training-set size is the \alert{textbook signature} of a data-limited regime.
+    \item Three pipeline-level fixes (no new data needed):\\
+    \scriptsize (i) reduce augmentation factor,\\
+    (ii) strengthen L2 / dropout,\\
+    (iii) adopt XEnt + SGD.
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}

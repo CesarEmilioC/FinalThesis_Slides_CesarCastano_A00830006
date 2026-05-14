@@ -1,0 +1,158 @@
+% =============================================================================
+%  Section 2 -- Methodology
+% =============================================================================
+
+\section{Methodology}
+
+% --- Section divider ---------------------------------------------------------
+\sectiondivider{Methodology}{From raw video to a 5-class quality score}
+
+% --- Pipeline overview -------------------------------------------------------
+\begin{frame}{End-to-end pipeline}
+\centering
+\includegraphics[width=0.95\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/methodology/methodologyPipeline.pdf}
+\vspace{2pt}\\
+{\scriptsize\itshape 7 modular stages, each independently inspectable and replaceable.}
+\end{frame}
+
+% --- Data collection & labeling ---------------------------------------------
+\begin{frame}{Data collection \& labeling}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.50\textwidth}
+\textbf{\color{tecdark}Acquisition (controlled):}
+\begin{itemize}\small
+    \item iPhone 13, fixed lateral camera, 1920$\times$1080 @ 30 FPS.
+    \item 6 players (IDs 3, 4, 5, 6, 9, 10), skill range: 6th category $\rightarrow$ professional.
+    \item 484 clips, $\sim$2--4 s each.
+\end{itemize}
+\vspace{6pt}
+\textbf{\color{tecdark}Labeling protocol:}
+\begin{itemize}\small
+    \item Each clip graded \alert{1--10} by a single expert coach.
+    \item Grade embedded in filename (\texttt{\_grade}).
+    \item Two evaluators: K. Garc\'ia (CO), S. Fasciolo (AR).
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\
+{\scriptsize\itshape Six-stage data \& labeling workflow.}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Dataset statistics -----------------------------------------------------
+\begin{frame}{Dataset \& 5-class mapping}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.52\textwidth}
+\small
+Raw grades (1--10) $\rightarrow$ 5 quality classes:
+\[
+c = \min\!\bigl(\lfloor(y-1)/2\rfloor,\,4\bigr)
+\]
+\begin{center}\scriptsize
+\begin{tabular}{lcc}
+\toprule
+\textbf{Class} & \textbf{Grades} & \textbf{N} \\
+\midrule
+Very Low  & 1--2  & 40  \\
+Low       & 3--4  & 74  \\
+Medium    & 5--6  & 132 \\
+High      & 7--8  & 175 \\
+Excellent & 9--10 & 63  \\
+\midrule
+\textbf{Total} & & \textbf{484} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{2pt}
+\begin{infoBox}\scriptsize
+Skewed toward Medium/High $\rightarrow$ \alert{balanced class weights} in training.
+\end{infoBox}
+\end{column}
+\begin{column}{0.46\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/label_distribution.pdf}\\
+{\scriptsize\itshape Class distribution after the grade-to-class mapping.}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Mosaic with 5 classes (KEY SLIDE) --------------------------------------
+\begin{frame}{Dataset mosaic -- one frame per quality class}
+\centering
+\includegraphics[width=0.95\linewidth,height=0.55\textheight,keepaspectratio]{./DATA/images/experimentation/dataset_mosaic.pdf}\\[6pt]
+{\small\textbf{\color{tecdark}Watch a representative clip:}}\\[2pt]
+\setlength{\tabcolsep}{6pt}
+\begin{tabular}{ccccc}
+\href{TODO_clip_url_VeryLow}{\textcolor{tecaccent}{\textbf{Very Low}}} &
+\href{TODO_clip_url_Low}{\textcolor{tecorange}{\textbf{Low}}} &
+\href{TODO_clip_url_Medium}{\textcolor{tecblue}{\textbf{Medium}}} &
+\href{TODO_clip_url_High}{\textcolor{tecblue!70!tecgreen}{\textbf{High}}} &
+\href{TODO_clip_url_Excellent}{\textcolor{tecgreen}{\textbf{Excellent}}}\\
+{\scriptsize grades 1--2} & {\scriptsize grades 3--4} & {\scriptsize grades 5--6} & {\scriptsize grades 7--8} & {\scriptsize grades 9--10}\\
+\end{tabular}\\[4pt]
+{\scriptsize\itshape Click each class to open the corresponding clip in a browser.}
+\end{frame}
+
+% --- Pose estimation -------------------------------------------------------
+\begin{frame}{Pose estimation with OpenPose}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.52\textwidth}
+\textbf{\color{tecdark}Joints retained (4):}
+\begin{itemize}\small
+    \item \alert{Pelvis} -- positional reference (absolute).
+    \item \alert{Left shoulder} -- trunk rotation.
+    \item \alert{Right elbow} -- arm preparation.
+    \item \alert{Right wrist} -- racket trajectory.
+\end{itemize}
+\vspace{4pt}
+\textbf{\color{tecdark}Per clip $\Rightarrow$} sequence $\mathbf{X}_n\!\in\!\mathbb{R}^{F_n\times 8}$,\\
+relative-to-pelvis $(x,y)$ for the 3 upper-body joints.
+\vspace{4pt}
+\begin{noteBox}\scriptsize
+Linear interpolation fills missing detections.\\
+Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
+\end{noteBox}
+\end{column}
+\begin{column}{0.46\textwidth}
+\centering
+\includegraphics[width=\linewidth]{./DATA/images/methodology/poseEstimation_Example.pdf}\\
+{\scriptsize\itshape Color code: pelvis (green), shoulder (blue), elbow (yellow), wrist (red).}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Temporal trajectories -------------------------------------------------
+\begin{frame}{What the model sees: joint trajectories over 90 frames}
+\centering
+\includegraphics[width=0.92\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[2pt]
+{\scriptsize\itshape Wrist trajectory of an \alert{Excellent} (grade 9) vs.\ \alert{Very Low} (grade 1) clip from the same player. Excellent: smooth arc ($\sigma\!=\!40.1$ px). Very Low: irregular oscillations ($\sigma\!=\!184.1$ px).}
+\end{frame}
+
+% --- Architectures ----------------------------------------------------------
+\begin{frame}{Three temporal architectures}
+\setlength{\tabcolsep}{4pt}
+\small
+\begin{center}
+\begin{tabular}{l p{0.36\linewidth} p{0.36\linewidth}}
+\toprule
+\textbf{Model} & \textbf{Core block} & \textbf{Rationale} \\
+\midrule
+\textbf{BiLSTM} & 2 bidirectional LSTM layers (64/32) + L2 + dropout 0.40/0.35 & 3-gate cell + cell state $\Rightarrow$ long-range memory \\
+\addlinespace[2pt]
+\textbf{BiGRU}  & 2 bidirectional GRU layers (64/32) & 2-gate cell, fewer params (\emph{ablation control}) \\
+\addlinespace[2pt]
+\textbf{TCN}    & 3 dilated 1-D convs (kernel 3, dilation 1/2/4) + global avg pool & Parallel sequence processing, fixed receptive field \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{4pt}
+\textbf{\color{tecdark}Shared training setup:}
+\begin{itemize}\small
+    \item Input $(90,8)$ $\rightarrow$ Softmax over 5 classes.
+    \item Adam, sparse categorical cross-entropy, batch size 16, 100 epochs.
+    \item EarlyStopping (patience 15), ReduceLROnPlateau, Gaussian noise augmentation (factor 2), \alert{balanced class weights}.
+    \item 80/20 stratified split, seed 42.
+\end{itemize}
+\end{frame}

@@ -1,0 +1,55 @@
+\documentclass[aspectratio=169, 10pt, professionalfonts]{beamer}
+
+\input{./DATA/config.tex}
+
+\addtobeamertemplate{block begin}{}{\justifying}
+
+% -----------------------------------------------------------------------------
+%  Title page graphic (Tec logo)
+% -----------------------------------------------------------------------------
+\titlegraphic{\includegraphics[width=0.55\linewidth]{./DATA/FIGS/Logo.pdf}}
+
+% -----------------------------------------------------------------------------
+%  Thesis metadata
+% -----------------------------------------------------------------------------
+\title[Motion Recommendation for Padel]{%
+    Development of a Motion Recommendation System\\
+    to Improve Paddle Tennis Players' Performance\\
+    Using Computer Vision and Machine Learning}
+
+\author[C. Casta\~no]{%
+    Cesar Emilio Casta\~no Marin\\[2pt]
+    {\small Advisor: Dr.\ Marcial Roberto Leyva Fern\'andez}\\[1pt]
+    {\scriptsize Committee: Dr.\ Hugo Terashima Mar\'in \quad Dr.\ Ra\'ul Monroy Borja}}
+
+\institute[ITESM]{%
+    Tecnol\'ogico de Monterrey -- Campus Monterrey\\
+    \medskip
+    Master of Computer Science (MCC) -- Thesis Defense\\[2pt]
+    \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}}
+
+\date{\scriptsize{May 2026}}
+
+\begin{document}
+
+% -----------------------------------------------------------------------------
+%  Title slide
+% -----------------------------------------------------------------------------
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+
+% -----------------------------------------------------------------------------
+%  Outline slide
+% -----------------------------------------------------------------------------
+\begin{frame}
+\frametitle{Outline}
+\tableofcontents
+\end{frame}
+
+% -----------------------------------------------------------------------------
+%  Body
+% -----------------------------------------------------------------------------
+\input{DATA/body}
+
+\end{document}
