@@ -4,7 +4,9 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}              % scalable Computer Modern (any \fontsize)
 \usepackage[english]{babel}
+\usepackage{csquotes}             % required by biblatex when babel is loaded
 
 \mode<presentation> {
     \usetheme{Montpellier}
@@ -39,29 +41,45 @@
 \setbeamercolor{section in head/foot}{fg=tecdark,bg=tecblue!8}
 \setbeamercolor{subsection in head/foot}{fg=slidegray,bg=tecblue!8}
 
-% Slightly bolder fonts for titles
+% Title / block fonts
 \setbeamerfont{frametitle}{series=\bfseries,size=\large}
 \setbeamerfont{title}{series=\bfseries}
 \setbeamerfont{block title}{series=\bfseries}
+
+% Running header fonts (a bit bigger than the Montpellier default)
 \setbeamerfont{section in head/foot}{series=\bfseries,size=\normalsize}
 \setbeamerfont{subsection in head/foot}{shape=\itshape,size=\small}
 
+% Outline (table of contents) -- section bold, subsection smaller + indented
+\setbeamerfont{section in toc}{series=\bfseries,size=\normalsize}
+\setbeamerfont{subsection in toc}{size=\scriptsize}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}{%
+  \leavevmode\leftskip=1.6em%
+  \color{slidegray}\textbullet~\inserttocsubsection\par%
+}
+
 % -----------------------------------------------------------------------------
-%  Custom headline: centered section + optional subsection, bigger font.
-%  Replaces the Montpellier section dots / left-aligned title.
+%  Custom headline: centered section + optional subsection.
+%  ht/dp generously sized to avoid clipping by the Beamer canvas top edge.
 % -----------------------------------------------------------------------------
+\makeatletter
 \setbeamertemplate{headline}{%
   \leavevmode%
-  \begin{beamercolorbox}[wd=\paperwidth,ht=3.6ex,dp=1.6ex,sep=4pt,center]{section in head/foot}%
-    \ifx\insertsection\empty\else%
+  \vspace*{1.2ex}% breathing room above the band so ascenders don't clip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1.5ex,sep=4pt,center]{section in head/foot}%
+    \strut%
+    \ifx\insertsectionhead\@empty\else%
       {\usebeamerfont{section in head/foot}\color{tecdark}\insertsectionhead}%
-      \ifx\insertsubsection\empty\else%
-        \hspace*{0.6em}\textcolor{slidegray}{\textbar}\hspace*{0.6em}%
+      \ifx\insertsubsectionhead\@empty\else%
+        \hspace*{0.7em}\textcolor{slidegray}{\textbar}\hspace*{0.7em}%
         {\usebeamerfont{subsection in head/foot}\color{slidegray}\insertsubsectionhead}%
       \fi%
     \fi%
+    \strut%
   \end{beamercolorbox}%
 }
+\makeatother
 
 % -----------------------------------------------------------------------------
 %  Packages
@@ -109,6 +127,7 @@
 
 % -----------------------------------------------------------------------------
 %  tcolorbox-based note boxes
+%  NOTE: \"oversize\" removed so boxes respect their parent column width.
 % -----------------------------------------------------------------------------
 \usepackage[most]{tcolorbox}
 \tcbuselibrary{skins,xparse,listings}
@@ -116,8 +135,8 @@
 \tcbset{textmarker/.style={%
     enhanced,
     parbox=false,boxrule=0mm,boxsep=0mm,arc=0mm,
-    outer arc=0mm,left=6mm,right=3mm,top=7pt,bottom=7pt,
-    toptitle=1mm,bottomtitle=1mm,oversize}}
+    outer arc=0mm,left=6mm,right=3mm,top=6pt,bottom=6pt,
+    toptitle=1mm,bottomtitle=1mm}}
 
 \newtcolorbox{hintBox}{textmarker,
     borderline west={6pt}{0pt}{tecorange},
@@ -149,7 +168,7 @@
 \usefonttheme{professionalfonts}
 \setbeamertemplate{caption}[numbered]
 
-% Page counter only in nav symbols
+% Page counter in nav symbols
 \addtobeamertemplate{navigation symbols}{}{%
     \usebeamerfont{footline}%
     \usebeamercolor[fg]{footline}%
@@ -166,14 +185,14 @@
 \renewcommand{\tablename}{Tab.}
 
 % -----------------------------------------------------------------------------
-%  Section divider macro -- centered, larger, more breathing room
+%  Section divider macro -- uses \Huge (font-size safe; no <32pt warning)
 % -----------------------------------------------------------------------------
 \newcommand{\sectiondivider}[2]{%
     \begin{frame}[plain]
     \vfill
     \begin{center}
         {\color{tecblue}\rule{0.75\linewidth}{1.4pt}}\\[18pt]
-        {\fontsize{32}{38}\selectfont\bfseries\color{tecdark}#1}\\[10pt]
+        {\Huge\bfseries\color{tecdark}#1}\\[10pt]
         {\large\color{slidegray}\itshape #2}\\[18pt]
         {\color{tecblue}\rule{0.75\linewidth}{1.4pt}}
     \end{center}
