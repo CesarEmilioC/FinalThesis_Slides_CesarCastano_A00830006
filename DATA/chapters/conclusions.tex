@@ -7,7 +7,9 @@
 % --- Section divider --------------------------------------------------------
 \sectiondivider{Conclusions \& Future Work}{What works, what limits us, and where this goes next}
 
-% --- Hypothesis verdict -----------------------------------------------------
+% --- Subsection: Hypothesis -------------------------------------------------
+\subsection{Hypothesis Verdict}
+
 \begin{frame}{Hypothesis verdict: \emph{partial support}}
 \begin{exampleblock}{Evidence in favor}
 \small
@@ -22,14 +24,16 @@
 \small
 \begin{itemize}
     \item Documented final model (Test03): 29.9\% -- not deployment-ready.
-    \item Generalization gap: $\sim$70 pp between training and test accuracy.
+    \item Generalization gap: $\sim$70~pp between training and test accuracy.
     \item Spearman $\rho$ at 80/20 not significant ($p\!>\!0.05$).
 \end{itemize}
 \end{alertblock}
 {\footnotesize\itshape Proof of concept: the method works at the present scale; closing the remaining gap is a data \& labeling problem.}
 \end{frame}
 
-% --- Limitations ------------------------------------------------------------
+% --- Subsection: Limitations ------------------------------------------------
+\subsection{Limitations}
+
 \begin{frame}{Limitations}
 \begin{itemize}\small
     \item \textbf{Dataset size}: 484 clips across 6 players -- minority-class supports as low as 8 and 13 in the test set.
@@ -41,10 +45,12 @@
 \end{itemize}
 \end{frame}
 
-% --- Future work ------------------------------------------------------------
+% --- Subsection: Future Work ------------------------------------------------
+\subsection{Future Work \& Scalability}
+
 \begin{frame}{Future work -- four highest-priority actions}
 \begin{enumerate}\small
-    \item \textbf{Dataset expansion} to $\geq$ 1,000 clips, target $\geq$ 200 per class, more players and varied environments.
+    \item \textbf{Dataset expansion} to $\geq$ 1{,}000 clips, target $\geq$ 200 per class, more players and varied environments.
     \item \textbf{Validated labeling protocol}: dual-grading on $\geq$ 20\% of clips, Cohen's $\kappa$ / ICC, consensus resolution.
     \item \textbf{Richer features}: joint angles, angular velocities, lower-body, 3D pose (multi-camera).
     \item \textbf{LOPO cross-validation} across players to bound true generalization.
@@ -54,12 +60,11 @@
 \begin{itemize}\small
     \item Adopt the \alert{XEnt + SGD} configuration identified in Sensitivity~1.
     \item Reduce augmentation factor; strengthen L2 / dropout (per Sensitivity~2).
-    \item Try ordinal-aware losses (CORAL, CORN, EMD), attention on top of BiLSTM, ST-GCN.
+    \item Try ordinal-aware losses, attention on top of BiLSTM~\cite{Vaswani2017Attention}, or ST-GCN~\cite{Yan2018STGCN}.
     \item Add phase-level diagnostics $\rightarrow$ first step toward a true recommendation module.
 \end{itemize}
 \end{frame}
 
-% --- Scalability ------------------------------------------------------------
 \begin{frame}{Scalability of the pipeline}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.5\textwidth}
@@ -91,7 +96,9 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \end{columns}
 \end{frame}
 
-% --- Demo & resources -------------------------------------------------------
+% --- Subsection: Demo & Resources ------------------------------------------
+\subsection{Demo \& Resources}
+
 \begin{frame}{Live demo \& open resources}
 \begin{exampleblock}{Interactive Colab demo (MODEL\_KEY selector)}
 \small \texttt{final} (Test03) -- \texttt{best\_grid} (XEnt + SGD) -- \texttt{best\_split} (60/40)\\[2pt]
@@ -107,7 +114,14 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \end{itemize}
 \end{frame}
 
-% --- Closing slide ----------------------------------------------------------
+% --- Subsection: References -------------------------------------------------
+\subsection{References}
+
+\begin{frame}[allowframebreaks]{References}
+\printbibliography[heading=none]
+\end{frame}
+
+% --- Closing slide (Q&A) ----------------------------------------------------
 \begin{frame}[plain]
 \centering
 \vspace{0.8cm}

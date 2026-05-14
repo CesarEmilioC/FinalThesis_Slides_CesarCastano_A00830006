@@ -8,7 +8,6 @@
 
 \mode<presentation> {
     \usetheme{Montpellier}
-    % We override the color theme below with a custom palette
 }
 
 % -----------------------------------------------------------------------------
@@ -37,20 +36,32 @@
 \setbeamercolor{enumerate item}{fg=tecblue}
 \setbeamercolor{section in toc}{fg=tecdark}
 \setbeamercolor{subsection in toc}{fg=slidegray}
+\setbeamercolor{section in head/foot}{fg=tecdark,bg=tecblue!8}
+\setbeamercolor{subsection in head/foot}{fg=slidegray,bg=tecblue!8}
 
 % Slightly bolder fonts for titles
 \setbeamerfont{frametitle}{series=\bfseries,size=\large}
 \setbeamerfont{title}{series=\bfseries}
 \setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont{section in head/foot}{series=\bfseries,size=\normalsize}
+\setbeamerfont{subsection in head/foot}{shape=\itshape,size=\small}
 
 % -----------------------------------------------------------------------------
-%  Header / footer
+%  Custom headline: centered section + optional subsection, bigger font.
+%  Replaces the Montpellier section dots / left-aligned title.
 % -----------------------------------------------------------------------------
-\addtobeamertemplate{headline}{}{%
-\begin{tikzpicture}[remember picture,overlay]
-\node at([shift={(0.4\paperwidth,-0.53)}]current page.north) {%
-\includegraphics[height=0.7cm,width=2.67cm]{./DATA/ICON/LogoHead.pdf}};
-\end{tikzpicture}}
+\setbeamertemplate{headline}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\paperwidth,ht=3.6ex,dp=1.6ex,sep=4pt,center]{section in head/foot}%
+    \ifx\insertsection\empty\else%
+      {\usebeamerfont{section in head/foot}\color{tecdark}\insertsectionhead}%
+      \ifx\insertsubsection\empty\else%
+        \hspace*{0.6em}\textcolor{slidegray}{\textbar}\hspace*{0.6em}%
+        {\usebeamerfont{subsection in head/foot}\color{slidegray}\insertsubsectionhead}%
+      \fi%
+    \fi%
+  \end{beamercolorbox}%
+}
 
 % -----------------------------------------------------------------------------
 %  Packages
@@ -70,9 +81,23 @@
 \usepackage{algorithm,algorithmic}
 \usepackage{tikz}
 \usepackage{colortbl}
-\usepackage{marvosym}
 \usepackage{xcolor}
 \usepackage{array}
+
+% -----------------------------------------------------------------------------
+%  Bibliography (biblatex + biber). Matches Overleaf's default toolchain.
+% -----------------------------------------------------------------------------
+\usepackage[backend=biber,
+            style=numeric-comp,
+            sorting=none,
+            maxbibnames=2,
+            maxcitenames=1,
+            doi=false,
+            isbn=false,
+            url=false,
+            eprint=false]{biblatex}
+\addbibresource{./DATA/references.bib}
+\renewcommand*{\bibfont}{\tiny}
 
 \hypersetup{colorlinks,
     citecolor=tecblue,
@@ -81,34 +106,6 @@
     filecolor=tecaccent,
     bookmarksopenlevel=4
 }
-
-% -----------------------------------------------------------------------------
-%  Code listings
-% -----------------------------------------------------------------------------
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
-\lstdefinestyle{mystyle}{
-    backgroundcolor=\color{backcolour},
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,
-    breaklines=true,
-    captionpos=b,
-    keepspaces=true,
-    numbers=left,
-    numbersep=5pt,
-    showspaces=false,
-    showstringspaces=false,
-    showtabs=false,
-    tabsize=2
-}
-\lstset{style=mystyle}
 
 % -----------------------------------------------------------------------------
 %  tcolorbox-based note boxes
@@ -152,7 +149,7 @@
 \usefonttheme{professionalfonts}
 \setbeamertemplate{caption}[numbered]
 
-% Page counter in nav symbols
+% Page counter only in nav symbols
 \addtobeamertemplate{navigation symbols}{}{%
     \usebeamerfont{footline}%
     \usebeamercolor[fg]{footline}%
@@ -169,19 +166,22 @@
 \renewcommand{\tablename}{Tab.}
 
 % -----------------------------------------------------------------------------
-%  Convenience commands
+%  Section divider macro -- centered, larger, more breathing room
 % -----------------------------------------------------------------------------
-% Section divider slide
 \newcommand{\sectiondivider}[2]{%
     \begin{frame}[plain]
+    \vfill
     \begin{center}
-        \vspace{1cm}
-        {\color{tecblue}\rule{0.7\linewidth}{1.2pt}}\\[12pt]
-        {\Huge\bfseries\color{tecdark}#1}\\[6pt]
-        {\large\color{slidegray}\itshape #2}\\[12pt]
-        {\color{tecblue}\rule{0.7\linewidth}{1.2pt}}
+        {\color{tecblue}\rule{0.75\linewidth}{1.4pt}}\\[18pt]
+        {\fontsize{32}{38}\selectfont\bfseries\color{tecdark}#1}\\[10pt]
+        {\large\color{slidegray}\itshape #2}\\[18pt]
+        {\color{tecblue}\rule{0.75\linewidth}{1.4pt}}
     \end{center}
+    \vfill
     \end{frame}}
 
 % Compact key-value row used in summary slides
 \newcommand{\kv}[2]{\textbf{\color{tecdark}#1:}\;\,#2}
+
+% Short cite for inline use in slides
+\newcommand{\scite}[1]{\textcolor{tecblue!80}{\tiny[\cite{#1}]}}

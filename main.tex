@@ -5,46 +5,54 @@
 \addtobeamertemplate{block begin}{}{\justifying}
 
 % -----------------------------------------------------------------------------
-%  Title page graphic (Tec logo)
+%  Thesis metadata (short forms only -- avoids hyperref Unicode warnings
+%  about \\ and \quad in PDF metadata strings).
+%  The visual title page is custom-laid-out below.
 % -----------------------------------------------------------------------------
-\titlegraphic{\includegraphics[width=0.55\linewidth]{./DATA/FIGS/Logo.pdf}}
-
-% -----------------------------------------------------------------------------
-%  Thesis metadata
-% -----------------------------------------------------------------------------
-\title[Motion Recommendation for Padel]{%
-    Development of a Motion Recommendation System\\
-    to Improve Paddle Tennis Players' Performance\\
-    Using Computer Vision and Machine Learning}
-
-\author[C. Casta\~no]{%
-    Cesar Emilio Casta\~no Marin\\[2pt]
-    {\small Advisor: Dr.\ Marcial Roberto Leyva Fern\'andez}\\[1pt]
-    {\scriptsize Committee: Dr.\ Hugo Terashima Mar\'in \quad Dr.\ Ra\'ul Monroy Borja}}
-
-\institute[ITESM]{%
-    Tecnol\'ogico de Monterrey -- Campus Monterrey\\
-    \medskip
-    Master of Computer Science (MCC) -- Thesis Defense\\[2pt]
-    \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}}
-
-\date{\scriptsize{May 2026}}
+\title[Motion Recommendation for Padel]{Motion Recommendation for Padel}
+\author[C.~Casta\~no]{Cesar Emilio Casta\~no Marin}
+\date{May 2026}
+\hypersetup{
+  pdftitle={Motion Recommendation System for Paddle Tennis -- MCC Thesis Defense},
+  pdfauthor={Cesar Emilio Castano Marin},
+  pdfsubject={Tecnologico de Monterrey -- MCC Thesis Defense},
+}
 
 \begin{document}
 
 % -----------------------------------------------------------------------------
-%  Title slide
+%  Title slide (custom layout, no \\ in metadata-bound fields)
 % -----------------------------------------------------------------------------
 \begin{frame}[plain]
-\titlepage
+\centering
+\vspace{0.2cm}
+\includegraphics[width=0.42\linewidth]{./DATA/FIGS/Logo.pdf}\\[12pt]
+{\large\bfseries\color{tecdark}Development of a Motion Recommendation System}\\[2pt]
+{\large\bfseries\color{tecdark}to Improve Paddle Tennis Players' Performance}\\[2pt]
+{\large\bfseries\color{tecdark}Using Computer Vision and Machine Learning}\\[16pt]
+{\Large\bfseries Cesar Emilio Casta\~no Marin}\\[2pt]
+{\footnotesize A00830006}\\[12pt]
+{\normalsize \textbf{Advisor:} Dr.\ Marcial Roberto Leyva Fern\'andez}\\[3pt]
+{\small \textbf{Committee:} Dr.\ Hugo Terashima Mar\'in \quad Dr.\ Ra\'ul Monroy Borja}\\[14pt]
+{\small Tecnol\'ogico de Monterrey -- Campus Monterrey}\\
+{\small Master of Computer Science (MCC) -- Thesis Defense}\\[8pt]
+{\scriptsize May 2026}
 \end{frame}
 
 % -----------------------------------------------------------------------------
-%  Outline slide
+%  Outline (detailed: shows sections and subsections)
 % -----------------------------------------------------------------------------
-\begin{frame}
-\frametitle{Outline}
-\tableofcontents
+\begin{frame}{Outline}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+\begin{columns}[t]
+\begin{column}{0.5\textwidth}
+\tableofcontents[sections={1-2}]
+\end{column}
+\begin{column}{0.5\textwidth}
+\tableofcontents[sections={3-4}]
+\end{column}
+\end{columns}
 \end{frame}
 
 % -----------------------------------------------------------------------------

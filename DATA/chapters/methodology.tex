@@ -4,44 +4,46 @@
 
 \section{Methodology}
 
-% --- Section divider ---------------------------------------------------------
+% --- Section divider --------------------------------------------------------
 \sectiondivider{Methodology}{From raw video to a 5-class quality score}
 
-% --- Pipeline overview -------------------------------------------------------
+% --- Subsection: Pipeline ---------------------------------------------------
+\subsection{Pipeline}
+
 \begin{frame}{End-to-end pipeline}
 \centering
-\includegraphics[width=0.95\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/methodology/methodologyPipeline.pdf}
-\vspace{2pt}\\
+\includegraphics[width=0.92\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/methodologyPipeline.pdf}\\[2pt]
 {\scriptsize\itshape 7 modular stages, each independently inspectable and replaceable.}
 \end{frame}
 
-% --- Data collection & labeling ---------------------------------------------
+% --- Subsection: Data -------------------------------------------------------
+\subsection{Data Collection \& Dataset}
+
 \begin{frame}{Data collection \& labeling}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.50\textwidth}
 \textbf{\color{tecdark}Acquisition (controlled):}
 \begin{itemize}\small
     \item iPhone 13, fixed lateral camera, 1920$\times$1080 @ 30 FPS.
-    \item 6 players (IDs 3, 4, 5, 6, 9, 10), skill range: 6th category $\rightarrow$ professional.
+    \item 6 players, skill range: 6th category $\rightarrow$ professional.
     \item 484 clips, $\sim$2--4 s each.
 \end{itemize}
-\vspace{6pt}
+\vspace{4pt}
 \textbf{\color{tecdark}Labeling protocol:}
 \begin{itemize}\small
     \item Each clip graded \alert{1--10} by a single expert coach.
     \item Grade embedded in filename (\texttt{\_grade}).
-    \item Two evaluators: K. Garc\'ia (CO), S. Fasciolo (AR).
+    \item Two evaluators: K.~Garc\'ia (CO), S.~Fasciolo (AR).
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\
+\includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\[2pt]
 {\scriptsize\itshape Six-stage data \& labeling workflow.}
 \end{column}
 \end{columns}
 \end{frame}
 
-% --- Dataset statistics -----------------------------------------------------
 \begin{frame}{Dataset \& 5-class mapping}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.52\textwidth}
@@ -67,21 +69,20 @@ Excellent & 9--10 & 63  \\
 \end{center}
 \vspace{2pt}
 \begin{infoBox}\scriptsize
-Skewed toward Medium/High $\rightarrow$ \alert{balanced class weights} in training.
+Skewed toward Medium / High $\rightarrow$ \alert{balanced class weights} in training.
 \end{infoBox}
 \end{column}
 \begin{column}{0.46\textwidth}
 \centering
-\includegraphics[width=\linewidth]{./DATA/images/experimentation/label_distribution.pdf}\\
+\includegraphics[width=\linewidth]{./DATA/images/experimentation/label_distribution.pdf}\\[2pt]
 {\scriptsize\itshape Class distribution after the grade-to-class mapping.}
 \end{column}
 \end{columns}
 \end{frame}
 
-% --- Mosaic with 5 classes (KEY SLIDE) --------------------------------------
 \begin{frame}{Dataset mosaic -- one frame per quality class}
 \centering
-\includegraphics[width=0.95\linewidth,height=0.55\textheight,keepaspectratio]{./DATA/images/experimentation/dataset_mosaic.pdf}\\[6pt]
+\includegraphics[width=0.92\linewidth,height=0.5\textheight,keepaspectratio]{./DATA/images/experimentation/dataset_mosaic.pdf}\\[6pt]
 {\small\textbf{\color{tecdark}Watch a representative clip:}}\\[2pt]
 \setlength{\tabcolsep}{6pt}
 \begin{tabular}{ccccc}
@@ -95,11 +96,13 @@ Skewed toward Medium/High $\rightarrow$ \alert{balanced class weights} in traini
 {\scriptsize\itshape Click each class to open the corresponding clip in a browser.}
 \end{frame}
 
-% --- Pose estimation -------------------------------------------------------
+% --- Subsection: Pose features ---------------------------------------------
+\subsection{Pose Features}
+
 \begin{frame}{Pose estimation with OpenPose}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.52\textwidth}
-\textbf{\color{tecdark}Joints retained (4):}
+\textbf{\color{tecdark}Joints retained (4)~\cite{Cao2019OpenPose}:}
 \begin{itemize}\small
     \item \alert{Pelvis} -- positional reference (absolute).
     \item \alert{Left shoulder} -- trunk rotation.
@@ -117,33 +120,34 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \end{column}
 \begin{column}{0.46\textwidth}
 \centering
-\includegraphics[width=\linewidth]{./DATA/images/methodology/poseEstimation_Example.pdf}\\
-{\scriptsize\itshape Color code: pelvis (green), shoulder (blue), elbow (yellow), wrist (red).}
+\includegraphics[width=\linewidth]{./DATA/images/methodology/poseEstimation_Example.pdf}\\[2pt]
+{\scriptsize\itshape Pelvis (green), shoulder (blue), elbow (yellow), wrist (red)~\cite{Cao2019OpenPose}.}
 \end{column}
 \end{columns}
 \end{frame}
 
-% --- Temporal trajectories -------------------------------------------------
 \begin{frame}{What the model sees: joint trajectories over 90 frames}
 \centering
-\includegraphics[width=0.92\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[2pt]
-{\scriptsize\itshape Wrist trajectory of an \alert{Excellent} (grade 9) vs.\ \alert{Very Low} (grade 1) clip from the same player. Excellent: smooth arc ($\sigma\!=\!40.1$ px). Very Low: irregular oscillations ($\sigma\!=\!184.1$ px).}
+\includegraphics[width=0.9\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[2pt]
+{\scriptsize\itshape Wrist trajectory of an \alert{Excellent} (grade 9) vs.\ \alert{Very Low} (grade 1) clip from the same player. Excellent: smooth arc ($\sigma\!=\!40.1$~px). Very Low: irregular oscillations ($\sigma\!=\!184.1$~px).}
 \end{frame}
 
-% --- Architectures ----------------------------------------------------------
+% --- Subsection: Models -----------------------------------------------------
+\subsection{Models}
+
 \begin{frame}{Three temporal architectures}
 \setlength{\tabcolsep}{4pt}
 \small
 \begin{center}
-\begin{tabular}{l p{0.36\linewidth} p{0.36\linewidth}}
+\begin{tabular}{l p{0.32\linewidth} p{0.36\linewidth}}
 \toprule
 \textbf{Model} & \textbf{Core block} & \textbf{Rationale} \\
 \midrule
-\textbf{BiLSTM} & 2 bidirectional LSTM layers (64/32) + L2 + dropout 0.40/0.35 & 3-gate cell + cell state $\Rightarrow$ long-range memory \\
+\textbf{BiLSTM}~\cite{Hochreiter1997LSTM} & 2 BiLSTM layers (64/32) + L2 + dropout 0.40/0.35 & 3-gate cell + cell state $\Rightarrow$ long-range memory \\
 \addlinespace[2pt]
-\textbf{BiGRU}  & 2 bidirectional GRU layers (64/32) & 2-gate cell, fewer params (\emph{ablation control}) \\
+\textbf{BiGRU}~\cite{Cho2014GRU}  & 2 BiGRU layers (64/32) & 2-gate cell, fewer params (ablation) \\
 \addlinespace[2pt]
-\textbf{TCN}    & 3 dilated 1-D convs (kernel 3, dilation 1/2/4) + global avg pool & Parallel sequence processing, fixed receptive field \\
+\textbf{TCN}~\cite{Lea2017TCN}    & 3 dilated 1-D convs (kernel 3, dilation 1/2/4) + GAP & Parallel processing, fixed receptive field \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -151,8 +155,80 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \textbf{\color{tecdark}Shared training setup:}
 \begin{itemize}\small
     \item Input $(90,8)$ $\rightarrow$ Softmax over 5 classes.
-    \item Adam, sparse categorical cross-entropy, batch size 16, 100 epochs.
+    \item Adam~\cite{Adam2014}, sparse categorical cross-entropy, batch size 16, 100 epochs.
     \item EarlyStopping (patience 15), ReduceLROnPlateau, Gaussian noise augmentation (factor 2), \alert{balanced class weights}.
     \item 80/20 stratified split, seed 42.
 \end{itemize}
+\end{frame}
+
+% --- Subsection: Evaluation -------------------------------------------------
+\subsection{Evaluation Protocol}
+
+\begin{frame}{Evaluation metrics -- categorical}
+\small
+For a $K$-class problem, with $\text{TP}_c, \text{FP}_c, \text{FN}_c$ per class~$c$:
+\vspace{2pt}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.5\textwidth}
+\begin{block}{Per-class}
+\small
+\[
+\text{Precision}_c \!=\! \frac{\text{TP}_c}{\text{TP}_c\!+\!\text{FP}_c}\qquad
+\text{Recall}_c \!=\! \frac{\text{TP}_c}{\text{TP}_c\!+\!\text{FN}_c}
+\]
+\[
+F_{1,c} \;=\; 2\!\cdot\!\frac{\text{Precision}_c\!\cdot\!\text{Recall}_c}{\text{Precision}_c\!+\!\text{Recall}_c}
+\]
+\end{block}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{block}{Aggregates}
+\small
+\[
+\text{Macro-}F_1 \;=\; \frac{1}{K}\sum_{c=1}^{K} F_{1,c}
+\]
+\[
+\text{Weighted-}F_1 \;=\; \sum_{c=1}^{K}\frac{n_c}{N}\,F_{1,c}
+\]
+\[
+\text{Accuracy} \;=\; \frac{\sum_c \text{TP}_c}{N}
+\]
+\end{block}
+\end{column}
+\end{columns}
+\vspace{2pt}
+\begin{infoBox}\scriptsize
+The \alert{confusion matrix} ($K\times K$) reveals \emph{where} errors land -- critical for ordinal tasks where adjacent-class confusion is expected but extreme-class confusion is not.
+\end{infoBox}
+\end{frame}
+
+\begin{frame}{Evaluation metrics -- ordinal complement}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.55\textwidth}
+\small
+The 5 quality classes carry a \alert{natural ordering}:
+\[
+\text{Very Low}\!<\!\text{Low}\!<\!\text{Medium}\!<\!\text{High}\!<\!\text{Excellent}
+\]
+Accuracy / F1 treat \emph{all} misclassifications as equally wrong. \alert{Spearman's $\rho$} captures monotonic agreement between predicted and true class rankings:
+\[
+\rho \;=\; \frac{\sum_i (R(y_i)\!-\!\overline{R(y)})\,(R(\hat{y}_i)\!-\!\overline{R(\hat{y})})}{\sqrt{\sum_i(R(y_i)\!-\!\overline{R(y)})^2 \sum_i(R(\hat{y}_i)\!-\!\overline{R(\hat{y})})^2}}
+\]
+\end{column}
+\begin{column}{0.42\textwidth}
+\begin{exampleblock}{Reading $\rho$}
+\small
+\begin{itemize}
+    \item $\rho \!=\! +1$: perfect ordinal agreement.
+    \item $\rho \!=\! 0$: no ordinal association.
+    \item $\rho \!=\! -1$: perfect inverse ordering.
+    \item Each $\rho$ paired with a $p$-value; \alert{$p\!<\!0.05$} required for statistical significance.
+\end{itemize}
+\end{exampleblock}
+\vspace{4pt}
+\begin{noteBox}\scriptsize
+A high $\rho$ with modest accuracy means the model preserves the quality gradient even when the exact class is wrong.
+\end{noteBox}
+\end{column}
+\end{columns}
 \end{frame}
