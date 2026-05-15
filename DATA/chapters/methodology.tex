@@ -86,14 +86,14 @@ Skewed toward Medium / High $\rightarrow$ \alert{balanced class weights} in trai
 {\small\textbf{\color{tecdark}Watch a representative clip:}}\\[2pt]
 \setlength{\tabcolsep}{6pt}
 \begin{tabular}{ccccc}
-\href{TODO_clip_url_VeryLow}{\textcolor{tecaccent}{\textbf{Very Low}}} &
-\href{TODO_clip_url_Low}{\textcolor{tecorange}{\textbf{Low}}} &
-\href{TODO_clip_url_Medium}{\textcolor{tecblue}{\textbf{Medium}}} &
-\href{TODO_clip_url_High}{\textcolor{tecblue!70!tecgreen}{\textbf{High}}} &
-\href{TODO_clip_url_Excellent}{\textcolor{tecgreen}{\textbf{Excellent}}}\\
+\href{https://github.com/CesarEmilioC/thesisRepo_A00830006/blob/main/Samples/mosaicSamples/player10_part1_clip13_grade1.mp4}{\textcolor{tecaccent}{\textbf{Very Low}}} &
+\href{https://github.com/CesarEmilioC/thesisRepo_A00830006/blob/main/Samples/mosaicSamples/player3_part1_clip15_grade3.mp4}{\textcolor{tecorange}{\textbf{Low}}} &
+\href{https://github.com/CesarEmilioC/thesisRepo_A00830006/blob/main/Samples/mosaicSamples/player10_part1_clip19_grade5.mp4}{\textcolor{tecblue}{\textbf{Medium}}} &
+\href{https://github.com/CesarEmilioC/thesisRepo_A00830006/blob/main/Samples/mosaicSamples/player3_part1_clip10_grade8.mp4}{\textcolor{tecblue!70!tecgreen}{\textbf{High}}} &
+\href{https://github.com/CesarEmilioC/thesisRepo_A00830006/blob/main/Samples/mosaicSamples/player10_part1_clip12_grade9.mp4}{\textcolor{tecgreen}{\textbf{Excellent}}}\\
 {\scriptsize grades 1--2} & {\scriptsize grades 3--4} & {\scriptsize grades 5--6} & {\scriptsize grades 7--8} & {\scriptsize grades 9--10}\\
 \end{tabular}\\[4pt]
-{\scriptsize\itshape Click each class to open the corresponding clip in a browser.}
+{\scriptsize\itshape Click each class to open the corresponding clip on GitHub.}
 \end{frame}
 
 % --- Subsection: Pose features ---------------------------------------------
@@ -167,36 +167,31 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \begin{frame}{Evaluation metrics -- categorical}
 \small
 For a $K$-class problem, with $\text{TP}_c, \text{FP}_c, \text{FN}_c$ per class~$c$:
-\vspace{2pt}
+\vspace{4pt}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.5\textwidth}
-\begin{block}{Per-class}
-\small
-\[
-\text{Precision}_c \!=\! \frac{\text{TP}_c}{\text{TP}_c\!+\!\text{FP}_c}\qquad
-\text{Recall}_c \!=\! \frac{\text{TP}_c}{\text{TP}_c\!+\!\text{FN}_c}
-\]
-\[
-F_{1,c} \;=\; 2\!\cdot\!\frac{\text{Precision}_c\!\cdot\!\text{Recall}_c}{\text{Precision}_c\!+\!\text{Recall}_c}
-\]
+\begin{column}{0.49\textwidth}
+\begin{block}{Per-class\vphantom{Ag}}
+\centering\small
+\vspace{2pt}
+$\displaystyle \text{Precision}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FP}_c}$\\[6pt]
+$\displaystyle \text{Recall}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FN}_c}$\\[6pt]
+$\displaystyle F_{1,c} = 2\cdot\frac{\text{Precision}_c \cdot \text{Recall}_c}{\text{Precision}_c + \text{Recall}_c}$
+\vspace{2pt}
 \end{block}
 \end{column}
-\begin{column}{0.5\textwidth}
-\begin{block}{Aggregates}
-\small
-\[
-\text{Macro-}F_1 \;=\; \frac{1}{K}\sum_{c=1}^{K} F_{1,c}
-\]
-\[
-\text{Weighted-}F_1 \;=\; \sum_{c=1}^{K}\frac{n_c}{N}\,F_{1,c}
-\]
-\[
-\text{Accuracy} \;=\; \frac{\sum_c \text{TP}_c}{N}
-\]
+\hspace{0.02\textwidth}
+\begin{column}{0.49\textwidth}
+\begin{block}{Aggregates\vphantom{Ag}}
+\centering\small
+\vspace{2pt}
+$\displaystyle \text{Macro-}F_1 = \frac{1}{K}\sum_{c=1}^{K} F_{1,c}$\\[6pt]
+$\displaystyle \text{Weighted-}F_1 = \sum_{c=1}^{K}\frac{n_c}{N}\,F_{1,c}$\\[6pt]
+$\displaystyle \text{Accuracy} = \frac{\sum_c \text{TP}_c}{N}$
+\vspace{2pt}
 \end{block}
 \end{column}
 \end{columns}
-\vspace{2pt}
+\vspace{4pt}
 \begin{infoBox}\scriptsize
 The \alert{confusion matrix} ($K\times K$) reveals \emph{where} errors land -- critical for ordinal tasks where adjacent-class confusion is expected but extreme-class confusion is not.
 \end{infoBox}
