@@ -159,27 +159,25 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 
 \begin{frame}{\emph{Method is data-limited, not method-limited}}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.46\textwidth}
+\begin{column}{0.45\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/experimentation/split_confusion_06.pdf}\\[2pt]
-{\scriptsize\itshape Confusion matrix at the 60/40 split -- broader coverage of minority classes.}
+\includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{./DATA/images/experimentation/split_confusion_06.pdf}\\[2pt]
+{\scriptsize\itshape Confusion matrix at the 60/40 split: broader coverage of minority classes.}
 \end{column}
-\begin{column}{0.52\textwidth}
+\hspace{0.02\textwidth}
+\begin{column}{0.51\textwidth}
 \begin{alertblock}{The +9~pp jump}
-\small Same architecture, same labels, same hyperparameters.\\
-Only the train/test fraction changed.\\[2pt]
+\scriptsize Same architecture, same labels, same hyperparameters.\\
+Only the train/test fraction changed.\\[1pt]
 \[
-26.8\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho=0.23,\; p=0.001
+\textstyle 26.8\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!=\!0.23,\; p\!=\!0.001
 \]
 \end{alertblock}
-\vspace{4pt}
-\begin{itemize}\small
-    \item If the architecture or pipeline were the binding constraint, performance would be \alert{flat across splits}.
+\vspace{2pt}
+\begin{itemize}\scriptsize
+    \item Flat performance across splits would mean architecture/pipeline is the binding constraint -- ours is not flat.
     \item The sensitivity of test metrics to training-set size is the \alert{textbook signature} of a data-limited regime.
-    \item Three pipeline-level fixes (no new data needed):\\
-    \scriptsize\,(i) reduce augmentation factor,\\
-    \scriptsize\,(ii) strengthen L2 / dropout,\\
-    \scriptsize\,(iii) adopt XEnt + SGD.
+    \item Three pipeline-level fixes (no new data): (i)~lower augmentation, (ii)~stronger L2 / dropout, (iii)~adopt XEnt + SGD.
 \end{itemize}
 \end{column}
 \end{columns}

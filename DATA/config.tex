@@ -65,19 +65,23 @@
 % -----------------------------------------------------------------------------
 \makeatletter
 \setbeamertemplate{headline}{%
-  \leavevmode%
-  \vspace*{1.2ex}% breathing room above the band so ascenders don't clip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1.5ex,sep=4pt,center]{section in head/foot}%
-    \strut%
-    \ifx\insertsectionhead\@empty\else%
-      {\usebeamerfont{section in head/foot}\color{tecdark}\insertsectionhead}%
-      \ifx\insertsubsectionhead\@empty\else%
-        \hspace*{0.7em}\textcolor{slidegray}{\textbar}\hspace*{0.7em}%
-        {\usebeamerfont{subsection in head/foot}\color{slidegray}\insertsubsectionhead}%
+  \vbox{%
+    \vskip 3ex% reserve space above the line of text so ascenders don't clip
+    \hbox to \paperwidth{%
+      \hfill%
+      \ifx\insertsectionhead\@empty\else%
+        {\usebeamerfont{section in head/foot}\color{tecdark}\insertsectionhead}%
+        \ifx\insertsubsectionhead\@empty\else%
+          \hspace*{0.7em}\textcolor{slidegray}{\textbar}\hspace*{0.7em}%
+          {\usebeamerfont{subsection in head/foot}\color{slidegray}\insertsubsectionhead}%
+        \fi%
       \fi%
-    \fi%
-    \strut%
-  \end{beamercolorbox}%
+      \hfill%
+    }%
+    \vskip 0.6ex%
+    \hbox to \paperwidth{\hfill{\color{tecblue!35}\rule{0.92\paperwidth}{0.4pt}}\hfill}%
+    \vskip 0.4ex%
+  }%
 }
 \makeatother
 
