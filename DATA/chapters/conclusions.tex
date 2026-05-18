@@ -118,13 +118,14 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 % --- Subsection: Acronyms --------------------------------------------------
 \subsection{Acronyms}
 
-\begin{frame}[allowframebreaks]{Acronyms}
-\setlength{\extrarowheight}{1pt}
+\begin{frame}{Acronyms}
+\setlength{\extrarowheight}{0.2pt}
+\setlength{\tabcolsep}{3pt}
 \scriptsize
-\begin{columns}[T,onlytextwidth]
-\begin{column}{0.48\textwidth}
+%
+\noindent\begin{minipage}[t]{0.32\textwidth}
 \textbf{\color{tecdark}Architectures \& training}\\[2pt]
-\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
+\begin{tabular}{@{}l@{\hspace{4pt}}p{0.66\linewidth}@{}}
 \textbf{LSTM}    & Long Short-Term Memory \\
 \textbf{BiLSTM}  & Bidirectional LSTM \\
 \textbf{GRU}     & Gated Recurrent Unit \\
@@ -141,13 +142,13 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{SGD}     & Stochastic Gradient Descent \\
 \textbf{XEnt}    & Cross-entropy (loss) \\
 \textbf{MSE}     & Mean Squared Error \\
-\textbf{L2}      & L2 weight regularization (ridge / weight decay) \\
+\textbf{L2}      & L2 weight regularization (ridge) \\
 \end{tabular}
-\end{column}
-\hspace{0.02\textwidth}
-\begin{column}{0.48\textwidth}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
 \textbf{\color{tecdark}Evaluation \& statistics}\\[2pt]
-\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
+\begin{tabular}{@{}l@{\hspace{4pt}}p{0.66\linewidth}@{}}
 \textbf{TP}      & True Positive \\
 \textbf{FP}      & False Positive \\
 \textbf{FN}      & False Negative \\
@@ -161,9 +162,12 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{LOPO}    & Leave-One-Player-Out (cross-validation) \\
 \textbf{ROC}     & Receiver Operating Characteristic \\
 \textbf{DET}     & Detection Error Tradeoff \\
-\end{tabular}\\[6pt]
+\end{tabular}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.32\textwidth}
 \textbf{\color{tecdark}Hardware, data \& tooling}\\[2pt]
-\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
+\begin{tabular}{@{}l@{\hspace{4pt}}p{0.66\linewidth}@{}}
 \textbf{FPS}     & Frames Per Second \\
 \textbf{IMU}     & Inertial Measurement Unit \\
 \textbf{JSON}    & JavaScript Object Notation \\
@@ -171,9 +175,16 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{GUI}     & Graphical User Interface \\
 \textbf{GPU}     & Graphics Processing Unit \\
 \textbf{API}     & Application Programming Interface \\
+\end{tabular}\\[10pt]
+\textbf{\color{tecdark}Quality classes (1--10 \(\to\) 5)}\\[2pt]
+\begin{tabular}{@{}l@{\hspace{4pt}}l@{}}
+\textbf{1--2}    & Very Low \\
+\textbf{3--4}    & Low \\
+\textbf{5--6}    & Medium \\
+\textbf{7--8}    & High \\
+\textbf{9--10}   & Excellent \\
 \end{tabular}
-\end{column}
-\end{columns}
+\end{minipage}
 \end{frame}
 
 % --- Subsection: Glossary --------------------------------------------------
