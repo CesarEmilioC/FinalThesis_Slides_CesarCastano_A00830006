@@ -115,6 +115,96 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \end{itemize}
 \end{frame}
 
+% --- Subsection: Acronyms --------------------------------------------------
+\subsection{Acronyms}
+
+\begin{frame}[allowframebreaks]{Acronyms}
+\setlength{\extrarowheight}{1pt}
+\footnotesize
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.48\textwidth}
+\begin{tabular}{@{}l@{\hspace{8pt}}p{0.66\linewidth}@{}}
+\textbf{LSTM}    & Long Short-Term Memory \\
+\textbf{BiLSTM}  & Bidirectional LSTM \\
+\textbf{GRU}     & Gated Recurrent Unit \\
+\textbf{BiGRU}   & Bidirectional GRU \\
+\textbf{RNN}     & Recurrent Neural Network \\
+\textbf{TCN}     & Temporal Convolutional Network \\
+\textbf{CNN}     & Convolutional Neural Network \\
+\textbf{ST-GCN}  & Spatio-Temporal Graph Convolutional Network \\
+\textbf{PAF}     & Part Affinity Field (in OpenPose) \\
+\textbf{BPTT}    & Backpropagation Through Time \\
+\textbf{Adam}    & Adaptive Moment estimation (optimizer) \\
+\textbf{SGD}     & Stochastic Gradient Descent \\
+\textbf{XEnt}    & Cross-entropy (loss) \\
+\textbf{MSE}     & Mean Squared Error \\
+\textbf{L2}      & L2 weight regularization (ridge / weight decay) \\
+\end{tabular}
+\end{column}
+\begin{column}{0.48\textwidth}
+\begin{tabular}{@{}l@{\hspace{8pt}}p{0.66\linewidth}@{}}
+\textbf{F1}      & F1-score (harmonic mean of precision and recall) \\
+\textbf{F1$_m$}  & Macro F1 (unweighted mean of per-class F1) \\
+\textbf{$\rho$}  & Spearman's rank correlation coefficient \\
+\textbf{$\kappa$}& Cohen's kappa (inter-rater agreement) \\
+\textbf{ICC}     & Intraclass Correlation Coefficient \\
+\textbf{pp}      & percentage points (absolute, not relative) \\
+\textbf{LOPO}    & Leave-One-Player-Out (cross-validation) \\
+\textbf{ROC}     & Receiver Operating Characteristic \\
+\textbf{DET}     & Detection Error Tradeoff \\
+\textbf{IMU}     & Inertial Measurement Unit \\
+\textbf{FPS}     & Frames Per Second \\
+\textbf{JSON}    & JavaScript Object Notation \\
+\textbf{CLI}     & Command-Line Interface \\
+\textbf{GUI}     & Graphical User Interface \\
+\textbf{GPU}     & Graphics Processing Unit \\
+\textbf{API}     & Application Programming Interface \\
+\end{tabular}
+\end{column}
+\end{columns}
+\end{frame}
+
+% --- Subsection: Glossary --------------------------------------------------
+\subsection{Glossary}
+
+\begin{frame}[allowframebreaks]{Glossary}
+\footnotesize
+\begin{description}\setlength{\itemsep}{4pt}
+\item[\textbf{Amateur}]
+A sport player who participates primarily for enjoyment, personal satisfaction, and skill development rather than for financial gain.
+
+\item[\textbf{Bandeja}]
+Paddle tennis stroke typically executed in response to a mid-height lob from the opponent. Players often face the dilemma of letting the ball bounce -- risking a loss of net position -- or producing an overhead shot that may not secure the point. Ideal hitting zone is mid-court, at a height between a volley and a smash.
+
+\item[\textbf{Paddle tennis} (padel)]
+Racket sport that merges aspects of tennis and squash. Played primarily in doubles on an enclosed court roughly one-third the size of a tennis court, with playable walls integral to the game.
+
+\item[\textbf{Pose estimation}]
+Computer vision technique that detects and tracks human body key-points (e.g., joints) from images or videos in order to estimate spatial positions and orientations.
+
+\item[\textbf{OpenPose}]
+Open-source real-time multi-person 2D pose-estimation framework that predicts body, hand, facial, and foot key-points using a two-branch convolutional architecture trained on confidence maps and Part Affinity Fields.
+
+\item[\textbf{Biomechanics}]
+Study of the mechanical laws governing the movement and structure of living organisms, including the analysis of joint trajectories, forces, and timing patterns that characterize human motion in sports.
+
+\item[\textbf{Ordinal classification}]
+Supervised classification setting in which the target classes follow a natural ordering (e.g., \textit{Very Low} $<$ \textit{Low} $<$ \textit{Medium} $<$ \textit{High} $<$ \textit{Excellent}). Misclassifications between adjacent classes are less wrong than between distant classes, motivating rank-based metrics such as Spearman's $\rho$.
+
+\item[\textbf{Data augmentation}]
+Family of preprocessing techniques that synthesize additional training samples by applying small perturbations (e.g., Gaussian noise on coordinate trajectories) so as to enlarge the effective training set and improve generalization on small datasets.
+
+\item[\textbf{Stratified split}]
+Partition of a dataset into training and test subsets that preserves the proportion of samples per class within each subset -- used here to keep the five quality classes balanced across both splits.
+
+\item[\textbf{Confusion matrix}]
+$K\!\times\!K$ matrix where entry $(i, j)$ records the number of samples with true class $i$ predicted as class $j$. Diagonal entries are correct classifications; off-diagonal entries reveal misclassification patterns.
+
+\item[\textbf{Percentage points (pp)}]
+Absolute difference between two percentages: going from $26.8\%$ to $36.1\%$ is a gain of $9.3$~pp, not a $35\%$ relative increase.
+\end{description}
+\end{frame}
+
 % --- Subsection: References -------------------------------------------------
 \subsection{References}
 

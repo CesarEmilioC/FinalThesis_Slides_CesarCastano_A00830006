@@ -71,7 +71,7 @@ A single shot (\emph{bandeja}), a single output (5-class quality score), one rep
 \textbf{\color{tecdark}Research Questions:}
 \begin{enumerate}\small
     \item How accurately does pose estimation extract key joints across skill levels?
-    \item How well does the LSTM replicate expert-assigned scores, and with what deviation?
+    \item How well does the Long Short-Term Memory (LSTM) model replicate expert-assigned scores, and with what deviation?
     \item To what extent does the model generalize to unseen performances?
     \item Is the learned representation specific to the \emph{bandeja}, or extensible to other shots?
 \end{enumerate}
@@ -80,13 +80,13 @@ A single shot (\emph{bandeja}), a single output (5-class quality score), one rep
 \begin{frame}{Contributions}
 \begin{enumerate}\small
     \item A novel \alert{pose-based dataset} for paddle tennis: 484 \emph{bandeja} clips from 6 players, expert-graded (1--10) and mapped to 5 quality classes.
-    \item Comparative evaluation of three temporal models -- \alert{BiLSTM~\cite{Hochreiter1997LSTM}, BiGRU~\cite{Cho2014GRU}, TCN~\cite{Lea2017TCN}} -- under identical pipeline, dataset, and metrics.
+    \item Comparative evaluation of three temporal models -- \alert{Bidirectional LSTM (BiLSTM)~\cite{Hochreiter1997LSTM}, Bidirectional Gated Recurrent Unit (BiGRU)~\cite{Cho2014GRU}, Temporal Convolutional Network (TCN)~\cite{Lea2017TCN}} -- under identical pipeline, dataset, and metrics.
     \item Two sensitivity analyses (loss/optimizer grid and 5-point split sweep) that quantify how the system reacts to design choices.
     \item A fully \alert{reproducible end-to-end pipeline} (video $\rightarrow$ pose $\rightarrow$ sequence $\rightarrow$ classification) released as open-source code.
     \item Public release of the labeled dataset (2D joint trajectories + grades + metadata) as a benchmark for racket-sport motion analysis.
 \end{enumerate}
 \vspace{2pt}
 \begin{infoBox}\small
-Code: \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}
+Code and Dataset: \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}
 \end{infoBox}
 \end{frame}

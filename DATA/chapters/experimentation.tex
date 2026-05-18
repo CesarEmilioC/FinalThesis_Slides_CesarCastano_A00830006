@@ -10,13 +10,13 @@
 % --- Subsection: LSTM Progression ------------------------------------------
 \subsection{LSTM Evolution}
 
-\begin{frame}{LSTM evolution: Test01 $\rightarrow$ Test02 $\rightarrow$ Test03}
+\begin{frame}{LSTM evolution: Stage 01 $\rightarrow$ Stage 02 $\rightarrow$ Stage 03}
 \setlength{\tabcolsep}{4pt}
 \small
 \begin{center}
 \begin{tabular}{l c c c}
 \toprule
- & \textbf{Test01} & \textbf{Test02} & \textbf{Test03 (final)} \\
+ & \textbf{Stage 01} & \textbf{Stage 02} & \textbf{Stage 03 (final)} \\
 \midrule
 \textbf{Dataset}        & 280 clips, 5 players & 484 clips, 6 players & 484 clips, 6 players \\
 \textbf{Output classes} & 10 (raw grades)      & 5 (grouped)          & 5 (grouped) \\
@@ -37,6 +37,64 @@
 \end{infoBox}
 \end{frame}
 
+% --- NEW: Stage progression explanation ------------------------------------
+\begin{frame}{Stage progression: what changed and why}
+\setlength{\columnsep}{6pt}
+\begin{columns}[T,onlytextwidth]
+
+\begin{column}{0.32\textwidth}
+\begin{block}{Stage 01 -- baseline}
+\scriptsize
+\textbf{Setup}
+\begin{itemize}\itemsep1pt
+    \item 280 clips, 5 players
+    \item \alert{10-class} output (raw grades 1--10)
+    \item 3 joints, 6 features
+    \item No interpolation, no class weights
+    \item Basic BiLSTM 128/64, dropout 0.30
+\end{itemize}
+\textbf{Result:} 16.1\% accuracy, macro F1 0.09\\
+\textbf{Pain:} predictions collapsed to grades 6--8.
+\end{block}
+\end{column}
+
+\begin{column}{0.34\textwidth}
+\begin{block}{Stage 02 -- pipeline upgrades}
+\scriptsize
+\textbf{What was added}
+\begin{itemize}\itemsep1pt
+    \item Dataset grew to \alert{484 clips, 6 players}
+    \item \alert{5-class} grouping (collapse adjacent grades)
+    \item \alert{4 joints, 8 features} (+ left shoulder)
+    \item Linear \alert{interpolation} of missing keypoints
+    \item \alert{Balanced class weights}
+\end{itemize}
+\textbf{Result:} 24.7\% (\textbf{$+8.6$ pp}), F1 0.23\\
+\textbf{Pain:} severe overfitting (train $\sim\!100\%$).
+\end{block}
+\end{column}
+
+\begin{column}{0.32\textwidth}
+\begin{block}{Stage 03 -- regularization}
+\scriptsize
+\textbf{What was added}
+\begin{itemize}\itemsep1pt
+    \item Smaller BiLSTM \alert{64/32} (was 128/64)
+    \item Dropout \alert{0.40 / 0.35}
+    \item \alert{L2} weight decay ($\lambda\!=\!10^{-4}$)
+    \item \alert{Gaussian-noise} augmentation ($\sigma\!=\!0.02$, $\times 2$)
+    \item \alert{ReduceLROnPlateau} learning-rate scheduling
+\end{itemize}
+\textbf{Result:} 29.9\% (\textbf{$+5.2$ pp}), F1 0.23\\
+\textbf{Pain:} train$\to$test gap still $\sim\!70$ pp.
+\end{block}
+\end{column}
+
+\end{columns}
+\vspace{4pt}
+{\scriptsize\itshape Each stage isolates a class of improvements (data, features, regularization) so the contribution of every change is traceable.}
+\end{frame}
+
 % --- Subsection: Model Comparison ------------------------------------------
 \subsection{Model Comparison}
 
@@ -46,7 +104,7 @@
 \begin{center}
 \begin{tabular}{l c c c}
 \toprule
-\textbf{Metric} & \textbf{BiLSTM (Test03)} & \textbf{BiGRU (Test01)} & \textbf{TCN (Test01)} \\
+\textbf{Metric} & \textbf{BiLSTM (Stage 03)} & \textbf{BiGRU (Stage 01)} & \textbf{TCN (Stage 01)} \\
 \midrule
 Architecture           & BiLSTM 64/32 & BiGRU 64/32 & 3$\times$ Conv1D \\
 Test set               & 97           & 97          & 97 \\
@@ -66,7 +124,7 @@ Spearman $\rho$ ($p$)  & 0.03 (0.76)  & 0.12 (0.26) & 0.14 (0.18) \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Final BiLSTM (Test03): confusion matrix}
+\begin{frame}{Stage 03 BiLSTM: confusion matrix}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.55\textwidth}
 \centering
@@ -105,11 +163,11 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \end{tabular}
 \end{center}
 \vspace{4pt}
-\textbf{\color{tecdark}Key finding:}
+\textbf{\color{tecdark}Key findings:}
 \begin{itemize}\scriptsize
-    \item \alert{XEnt + SGD}: $+8.3$~pp accuracy, $+0.09$ F1, $\rho\!=\!0.19$ ($p\!=\!0.06$) -- strongest single BiLSTM run.
+    \item \alert{Cross-entropy (XEnt) + Stochastic Gradient Descent (SGD)}: $+8.3$~pp accuracy, $+0.09$ F1, $\rho\!=\!0.19$ ($p\!=\!0.06$) -- strongest single BiLSTM run.
     \item Adam~\cite{Adam2014} overfits faster on 484 clips; SGD's smoother updates win.
-    \item Combining both changes (MSE + SGD) \emph{does not} stack.
+    \item Combining both changes (Mean Squared Error MSE + SGD) \emph{does not} stack.
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
@@ -166,17 +224,17 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \end{column}
 \hspace{0.02\textwidth}
 \begin{column}{0.51\textwidth}
-\begin{alertblock}{The +9~pp jump}
-\scriptsize Same architecture, same labels, same hyperparameters.\\
-Only the train/test fraction changed.\\[1pt]
+\begin{alertblock}{The $+9$ percentage-point (pp) gain}
+\scriptsize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[1pt]
 \[
 \textstyle 26.8\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!=\!0.23,\; p\!=\!0.001
 \]
+\scriptsize\hspace*{0.5em}\textit{pp = percentage points: the absolute difference between two percentages, i.e.\ $36.1-26.8 = 9.3$.}
 \end{alertblock}
 \vspace{2pt}
 \begin{itemize}\scriptsize
-    \item Flat performance across splits would mean architecture/pipeline is the binding constraint -- ours is not flat.
-    \item The sensitivity of test metrics to training-set size is the \alert{textbook signature} of a data-limited regime.
+    \item If the architecture / pipeline were the bottleneck, accuracy would be \alert{roughly flat across splits} -- ours is not.
+    \item Strong sensitivity of test metrics to the \emph{amount} of training data is the \alert{textbook signature} of a data-limited regime.
     \item Three pipeline-level fixes (no new data): (i)~lower augmentation, (ii)~stronger L2 / dropout, (iii)~adopt XEnt + SGD.
 \end{itemize}
 \end{column}
