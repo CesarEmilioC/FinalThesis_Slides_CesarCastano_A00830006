@@ -40,18 +40,44 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-%  Outline (detailed: shows sections and subsections)
+%  Outline (manually laid out for breathing room; back-matter subsections
+%  Acronyms / Glossary / References are omitted from the visible outline
+%  but still appear in the running header of their respective slides)
 % -----------------------------------------------------------------------------
 \begin{frame}{Outline}
-\setbeamertemplate{section in toc}[sections numbered]
-\setbeamertemplate{subsection in toc}[subsections numbered]
-\begin{columns}[t]
-\begin{column}{0.5\textwidth}
-\tableofcontents[sections={1-2}]
+\vspace{4pt}
+\begin{columns}[T,totalwidth=\textwidth]
+
+\begin{column}{0.48\textwidth}
+\textbf{\color{tecdark}\LARGE 1.\ Problem \& Motivation}\\[10pt]
+\hspace*{1.5em}\small\color{slidegray}Context \& access gap\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}The bandeja shot\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Research design\\[22pt]
+
+\textbf{\color{tecdark}\LARGE 2.\ Methodology}\\[10pt]
+\hspace*{1.5em}\small\color{slidegray}Pipeline\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Data collection \& dataset\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Pose features\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Models\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Evaluation protocol
 \end{column}
-\begin{column}{0.5\textwidth}
-\tableofcontents[sections={3-4}]
+
+\hspace{0.02\textwidth}
+
+\begin{column}{0.48\textwidth}
+\textbf{\color{tecdark}\LARGE 3.\ Experimentation \& Results}\\[10pt]
+\hspace*{1.5em}\small\color{slidegray}LSTM evolution\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Model comparison\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Sensitivity analyses\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Headline finding\\[22pt]
+
+\textbf{\color{tecdark}\LARGE 4.\ Conclusions \& Future Work}\\[10pt]
+\hspace*{1.5em}\small\color{slidegray}Hypothesis verdict\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Limitations\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Future work \& scalability\\[5pt]
+\hspace*{1.5em}\small\color{slidegray}Demo \& resources
 \end{column}
+
 \end{columns}
 \end{frame}
 
