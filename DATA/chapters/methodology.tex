@@ -24,7 +24,7 @@
 \begin{column}{0.50\textwidth}
 \textbf{\color{tecdark}Acquisition (controlled):}
 \begin{itemize}\small
-    \item iPhone 13, fixed lateral camera, 1920$\times$1080 @ 30 FPS.
+    \item iPhone 13, fixed lateral camera, 1920$\times$1080 @ 30 frames per second (FPS).
     \item 6 players, skill range: 6th category $\rightarrow$ professional.
     \item 484 clips, $\sim$2--4 s each.
 \end{itemize}
@@ -145,11 +145,11 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \toprule
 \textbf{Model} & \textbf{Core block} & \textbf{Rationale} \\
 \midrule
-\textbf{BiLSTM}~\cite{Hochreiter1997LSTM} & 2 BiLSTM layers (64/32) + L2 + dropout 0.40/0.35 & 3-gate cell + cell state $\Rightarrow$ long-range memory \\
+\textbf{BiLSTM}~\cite{Hochreiter1997LSTM} & 2 BiLSTM layers (64/32) + L2 weight decay + dropout 0.40/0.35 & 3-gate cell + cell state $\Rightarrow$ long-range memory \\
 \addlinespace[2pt]
 \textbf{BiGRU}~\cite{Cho2014GRU}  & 2 BiGRU layers (64/32) & 2-gate cell, fewer params (ablation) \\
 \addlinespace[2pt]
-\textbf{TCN}~\cite{Lea2017TCN}    & 3 dilated 1-D convs (kernel 3, dilation 1/2/4) + GAP & Parallel processing, fixed receptive field \\
+\textbf{TCN}~\cite{Lea2017TCN}    & 3 dilated 1-D convs (kernel 3, dilation 1/2/4) + global average pooling (GAP) & Parallel processing, fixed receptive field \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -157,7 +157,7 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \textbf{\color{tecdark}Shared training setup:}
 \begin{itemize}\small
     \item Input $(90,8)$ $\rightarrow$ Softmax over 5 classes.
-    \item Adam~\cite{Adam2014}, sparse categorical cross-entropy, batch size 16, 100 epochs.
+    \item Adam optimizer (Adaptive Moment estimation)~\cite{Adam2014}, sparse categorical cross-entropy, batch size 16, 100 epochs.
     \item EarlyStopping (patience 15), ReduceLROnPlateau, Gaussian noise augmentation (factor 2), \alert{balanced class weights}.
     \item 80/20 stratified split, seed 42.
 \end{itemize}
@@ -168,7 +168,7 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 
 \begin{frame}{Evaluation metrics -- categorical}
 \small
-For a $K$-class problem, with $\text{TP}_c, \text{FP}_c, \text{FN}_c$ per class~$c$:
+For a $K$-class problem, with true positives ($\text{TP}_c$), false positives ($\text{FP}_c$), and false negatives ($\text{FN}_c$) per class $c$:
 \vspace{4pt}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.49\textwidth}

@@ -37,9 +37,9 @@
 \begin{frame}{Limitations}
 \begin{itemize}\small
     \item \textbf{Dataset size}: 484 clips across 6 players -- minority-class supports as low as 8 and 13 in the test set.
-    \item \textbf{Single-evaluator labels}: no inter-rater reliability metric computed (no Cohen's $\kappa$ / ICC).
+    \item \textbf{Single-evaluator labels}: no inter-rater reliability computed (no Cohen's $\kappa$ or Intraclass Correlation Coefficient, ICC).
     \item \textbf{2D, 4 joints, 8 features}: no joint angles, no angular velocities, no lower-body, no depth.
-    \item \textbf{Player leakage}: stratified split mixes the same player across train and test (no LOPO yet).
+    \item \textbf{Player leakage}: stratified split mixes the same player across train and test (no Leave-One-Player-Out, LOPO, evaluation yet).
     \item \textbf{Recording setup}: single lateral smartphone view $\Rightarrow$ self-occlusion + motion blur $\Rightarrow$ 11.6\% interpolation rate.
     \item \textbf{Categorical loss}: cross-entropy ignores the ordinal structure of the 5 quality classes.
 \end{itemize}
@@ -60,7 +60,7 @@
 \begin{itemize}\small
     \item Adopt the \alert{XEnt + SGD} configuration identified in Sensitivity~1.
     \item Reduce augmentation factor; strengthen L2 / dropout (per Sensitivity~2).
-    \item Try ordinal-aware losses, attention on top of BiLSTM~\cite{Vaswani2017Attention}, or ST-GCN~\cite{Yan2018STGCN}.
+    \item Try ordinal-aware losses, attention on top of BiLSTM~\cite{Vaswani2017Attention}, or Spatio-Temporal Graph Convolutional Networks (ST-GCN)~\cite{Yan2018STGCN}.
     \item Add phase-level diagnostics $\rightarrow$ first step toward a true recommendation module.
 \end{itemize}
 \end{frame}
@@ -109,7 +109,7 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{\color{tecdark}Open-source code \& artifacts:}
 \begin{itemize}\small
     \item Repo: \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}
-    \item CLI: \texttt{pose}, \texttt{trainLSTM/GRU/TCN}, \texttt{predict*}, \texttt{plot}, \texttt{animate}, \texttt{runSensitivity}, \texttt{runSplitAnalysis}.
+    \item Command-Line Interface (CLI): \texttt{pose}, \texttt{trainLSTM/GRU/TCN}, \texttt{predict*}, \texttt{plot}, \texttt{animate}, \texttt{runSensitivity}, \texttt{runSplitAnalysis}.
     \item Saved weights: \texttt{lstmModel\_Sens\_C\_xent\_sgd\_27-04-2026.h5}, \texttt{lstmModel\_Split60\_27-04-2026.h5}, plus Test03.
     \item Output artifacts: training history JSON, learning curves, confusion matrices, classification reports, class-distribution plots.
 \end{itemize}
@@ -120,10 +120,11 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 
 \begin{frame}[allowframebreaks]{Acronyms}
 \setlength{\extrarowheight}{1pt}
-\footnotesize
+\scriptsize
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.48\textwidth}
-\begin{tabular}{@{}l@{\hspace{8pt}}p{0.66\linewidth}@{}}
+\textbf{\color{tecdark}Architectures \& training}\\[2pt]
+\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
 \textbf{LSTM}    & Long Short-Term Memory \\
 \textbf{BiLSTM}  & Bidirectional LSTM \\
 \textbf{GRU}     & Gated Recurrent Unit \\
@@ -131,7 +132,9 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{RNN}     & Recurrent Neural Network \\
 \textbf{TCN}     & Temporal Convolutional Network \\
 \textbf{CNN}     & Convolutional Neural Network \\
+\textbf{Conv1D}  & one-dimensional convolutional layer \\
 \textbf{ST-GCN}  & Spatio-Temporal Graph Convolutional Network \\
+\textbf{GAP}     & Global Average Pooling \\
 \textbf{PAF}     & Part Affinity Field (in OpenPose) \\
 \textbf{BPTT}    & Backpropagation Through Time \\
 \textbf{Adam}    & Adaptive Moment estimation (optimizer) \\
@@ -141,8 +144,14 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{L2}      & L2 weight regularization (ridge / weight decay) \\
 \end{tabular}
 \end{column}
+\hspace{0.02\textwidth}
 \begin{column}{0.48\textwidth}
-\begin{tabular}{@{}l@{\hspace{8pt}}p{0.66\linewidth}@{}}
+\textbf{\color{tecdark}Evaluation \& statistics}\\[2pt]
+\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
+\textbf{TP}      & True Positive \\
+\textbf{FP}      & False Positive \\
+\textbf{FN}      & False Negative \\
+\textbf{TN}      & True Negative \\
 \textbf{F1}      & F1-score (harmonic mean of precision and recall) \\
 \textbf{F1$_m$}  & Macro F1 (unweighted mean of per-class F1) \\
 \textbf{$\rho$}  & Spearman's rank correlation coefficient \\
@@ -152,8 +161,11 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \textbf{LOPO}    & Leave-One-Player-Out (cross-validation) \\
 \textbf{ROC}     & Receiver Operating Characteristic \\
 \textbf{DET}     & Detection Error Tradeoff \\
-\textbf{IMU}     & Inertial Measurement Unit \\
+\end{tabular}\\[6pt]
+\textbf{\color{tecdark}Hardware, data \& tooling}\\[2pt]
+\begin{tabular}{@{}l@{\hspace{8pt}}p{0.62\linewidth}@{}}
 \textbf{FPS}     & Frames Per Second \\
+\textbf{IMU}     & Inertial Measurement Unit \\
 \textbf{JSON}    & JavaScript Object Notation \\
 \textbf{CLI}     & Command-Line Interface \\
 \textbf{GUI}     & Graphical User Interface \\

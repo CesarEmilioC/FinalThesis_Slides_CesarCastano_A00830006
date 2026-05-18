@@ -33,7 +33,8 @@
 \end{center}
 \vspace{4pt}
 \begin{infoBox}\small
-\textbf{Largest gain ($+8.6$ pp)} came from \alert{pipeline changes} (5-class, interpolation, class weights) -- not from architecture.
+\textbf{Largest gain: $+8.6$ percentage points (pp)} came from \alert{pipeline changes} (5-class, interpolation, class weights) -- not from architecture.\\
+{\scriptsize\itshape pp = absolute difference between two percentages, e.g.\ $24.7-16.1=8.6$.}
 \end{infoBox}
 \end{frame}
 
@@ -106,7 +107,7 @@
 \toprule
 \textbf{Metric} & \textbf{BiLSTM (Stage 03)} & \textbf{BiGRU (Stage 01)} & \textbf{TCN (Stage 01)} \\
 \midrule
-Architecture           & BiLSTM 64/32 & BiGRU 64/32 & 3$\times$ Conv1D \\
+Architecture           & BiLSTM 64/32 & BiGRU 64/32 & 3$\times$ 1-D conv.\ (Conv1D) \\
 Test set               & 97           & 97          & 97 \\
 \midrule
 \textbf{Accuracy}      & \textbf{29.9\%} & 26.8\%   & \textbf{29.9\%} \\
@@ -167,7 +168,7 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \begin{itemize}\scriptsize
     \item \alert{Cross-entropy (XEnt) + Stochastic Gradient Descent (SGD)}: $+8.3$~pp accuracy, $+0.09$ F1, $\rho\!=\!0.19$ ($p\!=\!0.06$) -- strongest single BiLSTM run.
     \item Adam~\cite{Adam2014} overfits faster on 484 clips; SGD's smoother updates win.
-    \item Combining both changes (Mean Squared Error MSE + SGD) \emph{does not} stack.
+    \item Combining both changes (Mean Squared Error (MSE) + SGD) \emph{does not} stack.
 \end{itemize}
 \end{column}
 \begin{column}{0.48\textwidth}
