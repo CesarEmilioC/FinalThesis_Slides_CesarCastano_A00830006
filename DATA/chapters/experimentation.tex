@@ -5,12 +5,12 @@
 \section{Experimentation \& Results}
 
 % --- Section divider --------------------------------------------------------
-\sectiondivider{Experimentation \& Results}{Five experiments, two sensitivity sweeps, one headline finding}
+\sectiondivider{Experimentation \& Results}{Five experiments, two sensitivity sweeps, one headline finding}{sec:experiments}
 
 % --- Subsection: LSTM Progression ------------------------------------------
 \subsection{LSTM Evolution}
 
-\begin{frame}{LSTM evolution: Stage 01 $\rightarrow$ Stage 02 $\rightarrow$ Stage 03}
+\begin{frame}[label=sub:evolution]{LSTM evolution: Stage 01 $\rightarrow$ Stage 02 $\rightarrow$ Stage 03}
 \setlength{\tabcolsep}{4pt}
 \small
 \begin{center}
@@ -99,7 +99,7 @@
 % --- Subsection: Model Comparison ------------------------------------------
 \subsection{Model Comparison}
 
-\begin{frame}{Comparison of three temporal models}
+\begin{frame}[label=sub:comparison]{Comparison of three temporal models}
 \setlength{\tabcolsep}{6pt}
 \small
 \begin{center}
@@ -146,7 +146,7 @@ Spearman $\rho$ ($p$)  & 0.03 (0.76)  & 0.12 (0.26) & 0.14 (0.18) \\
 % --- Subsection: Sensitivity Analyses --------------------------------------
 \subsection{Sensitivity Analyses}
 
-\begin{frame}{Sensitivity 1: Loss function $\times$ Optimizer (BiLSTM)}
+\begin{frame}[label=sub:sensitivity]{Sensitivity 1: Loss function $\times$ Optimizer (BiLSTM)}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.50\textwidth}
 \setlength{\tabcolsep}{4pt}\scriptsize
@@ -216,7 +216,7 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 % --- Subsection: Headline Finding ------------------------------------------
 \subsection{Headline Finding}
 
-\begin{frame}{\emph{Method is data-limited, not method-limited}}
+\begin{frame}[label=sub:headline]{\emph{Method is data-limited, not method-limited}}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.45\textwidth}
 \centering

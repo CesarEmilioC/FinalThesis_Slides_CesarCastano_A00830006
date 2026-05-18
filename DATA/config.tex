@@ -189,10 +189,12 @@
 \renewcommand{\tablename}{Tab.}
 
 % -----------------------------------------------------------------------------
-%  Section divider macro -- uses \Huge (font-size safe; no <32pt warning)
+%  Section divider macro -- uses \Huge (font-size safe; no <32pt warning).
+%  Third argument is a Beamer frame label used as the \hyperlink target
+%  from the outline slide.
 % -----------------------------------------------------------------------------
-\newcommand{\sectiondivider}[2]{%
-    \begin{frame}[plain]
+\newcommand{\sectiondivider}[3]{%
+    \begin{frame}[plain,label=#3]
     \vfill
     \begin{center}
         {\color{tecblue}\rule{0.75\linewidth}{1.4pt}}\\[18pt]

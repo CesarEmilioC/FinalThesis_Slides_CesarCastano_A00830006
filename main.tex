@@ -40,13 +40,20 @@
 \end{frame}
 
 % -----------------------------------------------------------------------------
-%  Outline (manually laid out; back-matter subsections Acronyms / Glossary /
-%  References are omitted from the visible outline but still appear in the
-%  running header of their respective slides).
+%  Outline (manually laid out; all-blue palette; every entry is a hyperlink
+%  to the corresponding section divider or subsection-first frame).
+%  Back-matter subsections Acronyms / Glossary / References are omitted
+%  from the visible outline but still appear in the running header of
+%  their respective slides.
 % -----------------------------------------------------------------------------
-\newcommand{\tocsection}[2]{%
-  {\color{tecaccent}\bfseries\Large #1}\hspace{10pt}%
-  \textbf{\color{tecdark}\large #2}%
+\newcommand{\tocsection}[3]{%
+  \hyperlink{#3}{%
+    {\color{tecblue}\bfseries\Large #1}\hspace{10pt}%
+    \textbf{\color{tecdark}\large #2}%
+  }%
+}
+\newcommand{\tocsub}[2]{%
+  \hyperlink{#2}{\hspace*{2em}{\small\color{tecdark!75!white}#1}}%
 }
 
 \begin{frame}{Outline}
@@ -54,33 +61,33 @@
 \begin{columns}[T,totalwidth=\textwidth]
 
 \begin{column}{0.47\textwidth}
-\tocsection{1}{Problem \& Motivation}\\[7pt]
-\hspace*{2em}{\small\color{slidegray}Context \& access gap}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}The bandeja shot}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Research design}\\[18pt]
+\tocsection{1}{Problem \& Motivation}{sec:problem}\\[7pt]
+\tocsub{Context \& access gap}{sub:context}\\[4pt]
+\tocsub{The bandeja shot}{sub:bandeja}\\[4pt]
+\tocsub{Research design}{sub:research}\\[18pt]
 
-\tocsection{2}{Methodology}\\[7pt]
-\hspace*{2em}{\small\color{slidegray}Pipeline}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Data collection \& dataset}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Pose features}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Models}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Evaluation protocol}
+\tocsection{2}{Methodology}{sec:methodology}\\[7pt]
+\tocsub{Pipeline}{sub:pipeline}\\[4pt]
+\tocsub{Data collection \& dataset}{sub:dataset}\\[4pt]
+\tocsub{Pose features}{sub:pose}\\[4pt]
+\tocsub{Models}{sub:models}\\[4pt]
+\tocsub{Evaluation protocol}{sub:metrics}
 \end{column}
 
 \hspace{0.06\textwidth}
 
 \begin{column}{0.47\textwidth}
-\tocsection{3}{Experimentation \& Results}\\[7pt]
-\hspace*{2em}{\small\color{slidegray}LSTM evolution}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Model comparison}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Sensitivity analyses}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Headline finding}\\[18pt]
+\tocsection{3}{Experimentation \& Results}{sec:experiments}\\[7pt]
+\tocsub{LSTM evolution}{sub:evolution}\\[4pt]
+\tocsub{Model comparison}{sub:comparison}\\[4pt]
+\tocsub{Sensitivity analyses}{sub:sensitivity}\\[4pt]
+\tocsub{Headline finding}{sub:headline}\\[18pt]
 
-\tocsection{4}{Conclusions \& Future Work}\\[7pt]
-\hspace*{2em}{\small\color{slidegray}Hypothesis verdict}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Limitations}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Future work \& scalability}\\[4pt]
-\hspace*{2em}{\small\color{slidegray}Demo \& resources}
+\tocsection{4}{Conclusions \& Future Work}{sec:conclusions}\\[7pt]
+\tocsub{Hypothesis verdict}{sub:verdict}\\[4pt]
+\tocsub{Limitations}{sub:limitations}\\[4pt]
+\tocsub{Future work \& scalability}{sub:future}\\[4pt]
+\tocsub{Demo \& resources}{sub:demo}
 \end{column}
 
 \end{columns}

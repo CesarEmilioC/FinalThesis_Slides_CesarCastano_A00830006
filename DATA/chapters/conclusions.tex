@@ -5,12 +5,12 @@
 \section{Conclusions \& Future Work}
 
 % --- Section divider --------------------------------------------------------
-\sectiondivider{Conclusions \& Future Work}{What works, what limits us, and where this goes next}
+\sectiondivider{Conclusions \& Future Work}{What works, what limits us, and where this goes next}{sec:conclusions}
 
 % --- Subsection: Hypothesis -------------------------------------------------
 \subsection{Hypothesis Verdict}
 
-\begin{frame}{Hypothesis verdict: \emph{partial support}}
+\begin{frame}[label=sub:verdict]{Hypothesis verdict: \emph{partial support}}
 \begin{exampleblock}{Evidence in favor}
 \small
 \begin{itemize}
@@ -34,7 +34,7 @@
 % --- Subsection: Limitations ------------------------------------------------
 \subsection{Limitations}
 
-\begin{frame}{Limitations}
+\begin{frame}[label=sub:limitations]{Limitations}
 \begin{itemize}\small
     \item \textbf{Dataset size}: 484 clips across 6 players -- minority-class supports as low as 8 and 13 in the test set.
     \item \textbf{Single-evaluator labels}: no inter-rater reliability computed (no Cohen's $\kappa$ or Intraclass Correlation Coefficient, ICC).
@@ -48,7 +48,7 @@
 % --- Subsection: Future Work ------------------------------------------------
 \subsection{Future Work \& Scalability}
 
-\begin{frame}{Future work -- four highest-priority actions}
+\begin{frame}[label=sub:future]{Future work -- four highest-priority actions}
 \begin{enumerate}\small
     \item \textbf{Dataset expansion} to $\geq$ 1{,}000 clips, target $\geq$ 200 per class, more players and varied environments.
     \item \textbf{Validated labeling protocol}: dual-grading on $\geq$ 20\% of clips, Cohen's $\kappa$ / ICC, consensus resolution.
@@ -100,7 +100,7 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 % --- Subsection: Demo & Resources ------------------------------------------
 \subsection{Demo \& Resources}
 
-\begin{frame}{Live demo \& open resources}
+\begin{frame}[label=sub:demo]{Live demo \& open resources}
 \begin{exampleblock}{Interactive Colab demo (MODEL\_KEY selector)}
 \small \texttt{final} (Test03) -- \texttt{best\_grid} (XEnt + SGD) -- \texttt{best\_split} (60/40)\\[2pt]
 \href{https://drive.google.com/file/d/1ilXqfHP970POqXvRvfTO6ZWcD54KAfLP/view?usp=drive_link}{\color{tecaccent}\textbf{$\rightarrow$ Open the demo on Google Drive}}
