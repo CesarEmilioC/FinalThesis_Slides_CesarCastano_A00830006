@@ -209,66 +209,72 @@ A model with accuracy $a$ and Spearman $\rho$ near zero can rank classes randoml
 % --- Subsection: Glossary --------------------------------------------------
 \subsection{Glossary}
 
-% ---- Glossary page 1: Sport, vision & data ---------------------------------
-\begin{frame}{Glossary -- sport, vision \& data}
+% ---- Glossary page 1: Sport & vision (6 entries) ---------------------------
+\begin{frame}{Glossary -- sport \& vision}
 \footnotesize
-\begin{description}\setlength{\itemsep}{4pt}
-\item[\textbf{Amateur}]
+\begin{description}\setlength{\itemsep}{8pt}\setlength{\parsep}{0pt}
+\item[\textbf{Amateur}]\hfill\\
 A sport player who participates primarily for enjoyment, personal satisfaction, and skill development rather than for financial gain.
 
-\item[\textbf{Bandeja}]
-Paddle tennis stroke typically executed in response to a mid-height lob from the opponent. Players often face the dilemma of letting the ball bounce -- risking a loss of net position -- or producing an overhead shot that may not secure the point. Ideal hitting zone is mid-court, at a height between a volley and a smash.
+\item[\textbf{Bandeja}]\hfill\\
+Paddle tennis stroke typically executed in response to a mid-height lob from the opponent. The ideal hitting zone is mid-court, at a height between a volley and a smash.
 
-\item[\textbf{Paddle tennis} (padel)]
+\item[\textbf{Paddle tennis} (padel)]\hfill\\
 Racket sport that merges aspects of tennis and squash. Played primarily in doubles on an enclosed court roughly one-third the size of a tennis court, with playable walls integral to the game.
 
-\item[\textbf{Biomechanics}]
-Study of the mechanical laws governing the movement and structure of living organisms, including the analysis of joint trajectories, forces, and timing patterns that characterize human motion in sports.
+\item[\textbf{Biomechanics}]\hfill\\
+Study of the mechanical laws governing the movement and structure of living organisms; here, the analysis of joint trajectories, forces, and timing that characterize human motion in sports.
 
-\item[\textbf{Pose estimation}]
-Computer vision technique that detects and tracks human body key-points (e.g., joints) from images or videos in order to estimate spatial positions and orientations.
+\item[\textbf{Pose estimation}]\hfill\\
+Computer vision technique that detects and tracks human body key-points (e.g., joints) from images or videos to estimate spatial positions and orientations.
 
-\item[\textbf{OpenPose}]
-Open-source real-time multi-person 2D pose-estimation framework that predicts body, hand, facial, and foot key-points using a two-branch convolutional architecture trained on confidence maps and Part Affinity Fields.
-
-\item[\textbf{Stratified split}]
-Partition of a dataset into training and test subsets that preserves the proportion of samples per class within each subset -- used here to keep the five quality classes balanced across both splits.
-
-\item[\textbf{Data augmentation}]
-Family of preprocessing techniques that synthesize additional training samples by applying small perturbations (e.g., Gaussian noise on coordinate trajectories) so as to enlarge the effective training set and improve generalization on small datasets.
+\item[\textbf{OpenPose}]\hfill\\
+Open-source real-time multi-person 2D pose-estimation framework that predicts body, hand, facial, and foot key-points using confidence maps and Part Affinity Fields.
 \end{description}
 \end{frame}
 
-% ---- Glossary page 2: Modeling & evaluation concepts -----------------------
-\begin{frame}{Glossary -- modeling \& evaluation concepts}
+% ---- Glossary page 2: Data & training-time concepts (5 entries) ------------
+\begin{frame}{Glossary -- data \& training-time concepts}
 \footnotesize
-\begin{description}\setlength{\itemsep}{3pt}
-\item[\textbf{Ordinal classification}]
-Supervised classification in which the target classes follow a natural ordering (\textit{Very Low} $<$ \textit{Low} $<$ \textit{Medium} $<$ \textit{High} $<$ \textit{Excellent}). Misclassifications between adjacent classes are less wrong than between distant classes, motivating rank-based metrics such as Spearman's $\rho$.
+\begin{description}\setlength{\itemsep}{8pt}\setlength{\parsep}{0pt}
+\item[\textbf{Stratified split}]\hfill\\
+Partition of a dataset into training and test subsets that preserves the proportion of samples per class within each subset -- used here to keep the five quality classes balanced across both splits.
 
-\item[\textbf{Confusion matrix}]
-$K\!\times\!K$ matrix where entry $(i, j)$ records the number of samples with true class $i$ predicted as class $j$. Diagonal entries are correct classifications; off-diagonal entries reveal where the model fails.
+\item[\textbf{Data augmentation}]\hfill\\
+Synthesizing additional training samples from existing ones by applying small perturbations (e.g., Gaussian noise on coordinate trajectories) to enlarge the effective training set and improve generalization on small datasets.
 
-\item[\textbf{Cross-entropy loss}]
+\item[\textbf{Cross-entropy loss}]\hfill\\
 Standard classification loss that compares the predicted probability distribution against the one-hot encoded true label. Penalizes confident wrong predictions more strongly than uncertain ones.
 
-\item[\textbf{Dropout}]
-Regularization technique that randomly disables a fraction of neurons during each training step, forcing the network not to rely on any single feature path. This thesis uses rates of $0.40$ and $0.35$ in the two BiLSTM layers.
+\item[\textbf{Dropout}]\hfill\\
+Regularization that randomly disables a fraction of neurons during each training step, forcing the network not to rely on any single feature path. This thesis uses 0.40 and 0.35 in the two BiLSTM layers.
 
-\item[\textbf{L2 regularization} (weight decay)]
-Penalty added to the loss function proportional to the squared magnitudes of the model weights. Pushes weights toward zero, smooths decision boundaries, and helps when training data is scarce.
+\item[\textbf{L2 regularization} (weight decay)]\hfill\\
+Penalty added to the loss proportional to the squared magnitudes of the model weights. Pushes weights toward zero, smooths decision boundaries, and helps when training data is scarce.
+\end{description}
+\end{frame}
 
-\item[\textbf{Overfitting}]
-Phenomenon in which a model fits the training data very closely -- including its noise and player-specific idiosyncrasies -- but fails to generalize to unseen samples. Visible in this work as a $\sim$70 percentage-point gap between training and test accuracy.
+% ---- Glossary page 3: Evaluation & generalization concepts (6 entries) -----
+\begin{frame}{Glossary -- evaluation \& generalization}
+\footnotesize
+\begin{description}\setlength{\itemsep}{7pt}\setlength{\parsep}{0pt}
+\item[\textbf{Ordinal classification}]\hfill\\
+Classification in which target classes follow a natural ordering (\textit{Very Low} $<$ \textit{Low} $<$ \textit{Medium} $<$ \textit{High} $<$ \textit{Excellent}). Adjacent-class errors are less wrong than distant-class errors, motivating rank-based metrics such as Spearman's $\rho$.
 
-\item[\textbf{Inter-rater reliability}]
-Statistical measures (e.g., Cohen's $\kappa$ or the intraclass correlation coefficient) that quantify the degree of agreement between two or more annotators evaluating the same content. Not computed in this thesis because each clip was graded by a single coach -- a limitation flagged for future work.
+\item[\textbf{Confusion matrix}]\hfill\\
+$K\!\times\!K$ matrix where entry $(i, j)$ records true-class-$i$ samples predicted as class $j$. Diagonal entries are correct; off-diagonal entries reveal where errors land.
 
-\item[\textbf{Leave-one-player-out} (LOPO)]
-Cross-validation protocol where, in each fold, all clips of one player are held out as the test set while the remaining players form the training set. Provides a conservative estimate of generalization to truly unseen individuals.
+\item[\textbf{Overfitting}]\hfill\\
+A model fitting the training data very closely -- including noise and player-specific idiosyncrasies -- but failing to generalize. Visible here as a $\sim$70 pp gap between train and test accuracy.
 
-\item[\textbf{Percentage points} (pp)]
-Absolute difference between two percentages: going from $26.8\%$ to $36.1\%$ is a gain of $9.3$~pp, not a $35\%$ relative increase.
+\item[\textbf{Inter-rater reliability}]\hfill\\
+Statistical agreement between two or more annotators evaluating the same content (e.g., Cohen's $\kappa$, ICC). Not computed in this thesis -- each clip was graded by one coach.
+
+\item[\textbf{Leave-one-player-out} (LOPO)]\hfill\\
+Cross-validation protocol in which all clips of one player are held out for testing per fold; gives a conservative estimate of generalization to truly unseen individuals.
+
+\item[\textbf{Percentage points} (pp)]\hfill\\
+Absolute difference between two percentages: $26.8\%\!\to\!36.1\%$ is a gain of $9.3$~pp, not a $35\%$ relative increase.
 \end{description}
 \end{frame}
 
@@ -276,6 +282,9 @@ Absolute difference between two percentages: going from $26.8\%$ to $36.1\%$ is 
 \subsection{References}
 
 \begin{frame}[allowframebreaks]{References}
+\scriptsize
+\setlength{\bibitemsep}{3pt}
+\setlength{\bibhang}{8pt}
 \printbibliography[heading=none]
 \end{frame}
 
