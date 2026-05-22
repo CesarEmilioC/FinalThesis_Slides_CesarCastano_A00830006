@@ -24,7 +24,7 @@
 \begin{alertblock}{Evidence against full validation}
 \small
 \begin{itemize}
-    \item Documented final model (Test03): 29.9\% -- not deployment-ready.
+    \item Documented final model (Stage 03): 29.9\% -- not deployment-ready.
     \item Generalization gap: $\sim$70~pp between training and test accuracy.
     \item Spearman $\rho$ at 80/20 not significant ($p\!>\!0.05$).
 \end{itemize}
@@ -106,7 +106,7 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \begin{frame}{Live demo \& open resources}
 \hypertarget{sub:demo}{}%
 \begin{exampleblock}{Interactive Colab demo (MODEL\_KEY selector)}
-\small \texttt{final} (Test03) -- \texttt{best\_grid} (XEnt + SGD) -- \texttt{best\_split} (60/40)\\[2pt]
+\small \texttt{final} (Stage 03) -- \texttt{best\_grid} (XEnt + SGD) -- \texttt{best\_split} (60/40)\\[2pt]
 \href{https://drive.google.com/file/d/1ilXqfHP970POqXvRvfTO6ZWcD54KAfLP/view?usp=drive_link}{\color{tecaccent}\textbf{$\rightarrow$ Open the demo on Google Drive}}
 \end{exampleblock}
 \vspace{6pt}
@@ -114,7 +114,7 @@ The bottleneck is \alert{not} the architecture -- it is the quality and quantity
 \begin{itemize}\small
     \item Repo: \url{https://github.com/CesarEmilioC/thesisRepo_A00830006}
     \item Command-Line Interface (CLI): \texttt{pose}, \texttt{trainLSTM/GRU/TCN}, \texttt{predict*}, \texttt{plot}, \texttt{animate}, \texttt{runSensitivity}, \texttt{runSplitAnalysis}.
-    \item Saved weights: \texttt{lstmModel\_Sens\_C\_xent\_sgd\_27-04-2026.h5}, \texttt{lstmModel\_Split60\_27-04-2026.h5}, plus Test03.
+    \item Saved weights: \texttt{lstmModel\_Sens\_C\_xent\_sgd\_27-04-2026.h5}, \texttt{lstmModel\_Split60\_27-04-2026.h5}, plus Stage 03.
     \item Output artifacts: training history JSON, learning curves, confusion matrices, classification reports, class-distribution plots.
 \end{itemize}
 \end{frame}

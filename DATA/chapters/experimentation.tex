@@ -41,54 +41,69 @@
 
 % --- NEW: Stage progression explanation ------------------------------------
 \begin{frame}{Stage progression: what changed and why}
-\setlength{\columnsep}{6pt}
+\setlength{\columnsep}{8pt}
 \begin{columns}[T,onlytextwidth]
 
+% --- Stage 01 -------------------------------------------------------------
 \begin{column}{0.32\textwidth}
-\begin{block}{Stage 01 -- baseline}
+\begin{block}{\centering\strut Stage 01}
+\begin{minipage}[t][5.0cm][t]{\linewidth}
 \scriptsize
+\centerline{\itshape\color{slidegray} Baseline}\vspace{4pt}
 \textbf{Setup}
-\begin{itemize}\itemsep1pt
+\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
     \item 280 clips, 5 players
-    \item \alert{10-class} output (raw grades 1--10)
+    \item \alert{10-class} output (raw 1--10)
     \item 3 joints, 6 features
-    \item No interpolation, no class weights
-    \item Basic BiLSTM 128/64, dropout 0.30
+    \item No interp., no class weights
+    \item Basic BiLSTM 128/64
 \end{itemize}
-\textbf{Result:} 16.1\% accuracy, macro F1 0.09\\
-\textbf{Pain:} predictions collapsed to grades 6--8.
+\vfill
+\textbf{Result:} 16.1\%, F1 0.09\\
+\textbf{Pain:} predictions collapsed\\to grades 6--8.
+\end{minipage}
 \end{block}
 \end{column}
 
-\begin{column}{0.34\textwidth}
-\begin{block}{Stage 02 -- pipeline upgrades}
+% --- Stage 02 -------------------------------------------------------------
+\begin{column}{0.32\textwidth}
+\begin{block}{\centering\strut Stage 02}
+\begin{minipage}[t][5.0cm][t]{\linewidth}
 \scriptsize
+\centerline{\itshape\color{slidegray} Pipeline upgrades}\vspace{4pt}
 \textbf{What was added}
-\begin{itemize}\itemsep1pt
-    \item Dataset grew to \alert{484 clips, 6 players}
-    \item \alert{5-class} grouping (collapse adjacent grades)
-    \item \alert{4 joints, 8 features} (+ left shoulder)
-    \item Linear \alert{interpolation} of missing keypoints
+\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
+    \item \alert{484 clips, 6 players}
+    \item \alert{5-class} grouping
+    \item \alert{4 joints, 8 feat.} (+ shoulder)
+    \item Linear \alert{interpolation}
     \item \alert{Balanced class weights}
 \end{itemize}
+\vfill
 \textbf{Result:} 24.7\% (\textbf{$+8.6$ pp}), F1 0.23\\
-\textbf{Pain:} severe overfitting (train $\sim\!100\%$).
+\textbf{Pain:} severe overfitting\\(train $\sim\!100\%$).
+\end{minipage}
 \end{block}
 \end{column}
 
+% --- Stage 03 -------------------------------------------------------------
 \begin{column}{0.32\textwidth}
-\begin{block}{Stage 03 -- regularization}
+\begin{block}{\centering\strut Stage 03}
+\begin{minipage}[t][5.0cm][t]{\linewidth}
 \scriptsize
+\centerline{\itshape\color{slidegray} Regularization}\vspace{4pt}
 \textbf{What was added}
-\begin{itemize}\itemsep1pt
-    \item Smaller BiLSTM \alert{64/32} (was 128/64)
+\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
+    \item Smaller BiLSTM \alert{64/32}
     \item Dropout \alert{0.40 / 0.35}
-    \item \alert{L2} weight decay ($\lambda\!=\!10^{-4}$)
-    \item \alert{Gaussian-noise} augmentation ($\sigma\!=\!0.02$, $\times 2$)
-    \item \alert{ReduceLROnPlateau} learning-rate scheduling
+    \item \alert{L2} ($\lambda\!=\!10^{-4}$)
+    \item \alert{Gaussian noise} ($\sigma\!=\!0.02$, $\times 2$)
+    \item \alert{ReduceLROnPlateau}
 \end{itemize}
+\vfill
 \textbf{Result:} 29.9\% (\textbf{$+5.2$ pp}), F1 0.23\\
-\textbf{Pain:} train$\to$test gap still $\sim\!70$ pp.
+\textbf{Pain:} train$\to$test gap\\still $\sim\!70$ pp.
+\end{minipage}
 \end{block}
 \end{column}
 
