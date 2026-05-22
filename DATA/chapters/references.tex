@@ -1,16 +1,25 @@
 % =============================================================================
 %  Section 5 -- References (its own section, between Demo and Thank you)
+%  Split explicitly into 2 balanced frames (9 entries each) via keyword
+%  filtering, so the two pages look symmetric rather than uneven.
 % =============================================================================
 
 \section{References}
 
 \sectiondivider{References}{Works cited throughout the talk}{sec:references}
 
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}{References (1 / 2)}
 \scriptsize
-\setlength{\bibitemsep}{3pt}
+\setlength{\bibitemsep}{5pt}
 \setlength{\bibhang}{8pt}
-\printbibliography[heading=none]
+\printbibliography[heading=none, keyword=half1]
+\end{frame}
+
+\begin{frame}{References (2 / 2)}
+\scriptsize
+\setlength{\bibitemsep}{5pt}
+\setlength{\bibhang}{8pt}
+\printbibliography[heading=none, keyword=half2]
 \end{frame}
 
 % --- Closing slide (Q&A) ---------------------------------------------------
