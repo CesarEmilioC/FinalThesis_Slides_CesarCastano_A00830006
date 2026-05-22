@@ -48,53 +48,53 @@
 % -----------------------------------------------------------------------------
 \newcommand{\tocsection}[3]{%
   \hyperlink{#3}{%
-    {\color{tecblue}\bfseries\Large #1}\hspace{10pt}%
-    \textbf{\color{tecdark}\large #2}%
+    {\color{tecblue}\bfseries\large #1}\hspace{8pt}%
+    \textbf{\color{tecdark}\normalsize #2}%
   }%
 }
 \newcommand{\tocsub}[2]{%
-  \hyperlink{#2}{\hspace*{2em}{\small\color{tecdark!75!white}#1}}%
+  \hyperlink{#2}{\hspace*{1.5em}{\footnotesize\color{tecdark!75!white}#1}}%
 }
 
 \begin{frame}{Outline}
-\vspace{4pt}
+\vspace{2pt}
 \begin{columns}[T,totalwidth=\textwidth]
 
 \begin{column}{0.47\textwidth}
-\tocsection{1}{Problem \& Motivation}{sec:problem}\\[6pt]
-\tocsub{Context \& access gap}{sub:context}\\[3pt]
-\tocsub{The bandeja shot}{sub:bandeja}\\[3pt]
-\tocsub{Research design}{sub:research}\\[14pt]
+\tocsection{1}{Problem \& Motivation}{sec:problem}\\[4pt]
+\tocsub{Context \& access gap}{sub:context}\\[2pt]
+\tocsub{The bandeja shot}{sub:bandeja}\\[2pt]
+\tocsub{Research design}{sub:research}\\[10pt]
 
-\tocsection{2}{Methodology}{sec:methodology}\\[6pt]
-\tocsub{Pipeline}{sub:pipeline}\\[3pt]
-\tocsub{Data collection \& dataset}{sub:dataset}\\[3pt]
-\tocsub{Pose features}{sub:pose}\\[3pt]
-\tocsub{Models}{sub:models}\\[3pt]
+\tocsection{2}{Methodology}{sec:methodology}\\[4pt]
+\tocsub{Pipeline}{sub:pipeline}\\[2pt]
+\tocsub{Data collection \& dataset}{sub:dataset}\\[2pt]
+\tocsub{Pose features}{sub:pose}\\[2pt]
+\tocsub{Models}{sub:models}\\[2pt]
 \tocsub{Evaluation protocol}{sub:metrics}
 \end{column}
 
 \hspace{0.06\textwidth}
 
 \begin{column}{0.47\textwidth}
-\tocsection{3}{Experimentation \& Results}{sec:experiments}\\[6pt]
-\tocsub{LSTM evolution}{sub:evolution}\\[3pt]
-\tocsub{Model comparison}{sub:comparison}\\[3pt]
-\tocsub{Sensitivity analyses}{sub:sensitivity}\\[3pt]
-\tocsub{Headline finding}{sub:headline}\\[14pt]
+\tocsection{3}{Experimentation \& Results}{sec:experiments}\\[4pt]
+\tocsub{LSTM evolution}{sub:evolution}\\[2pt]
+\tocsub{Model comparison}{sub:comparison}\\[2pt]
+\tocsub{Sensitivity analyses}{sub:sensitivity}\\[2pt]
+\tocsub{Headline finding}{sub:headline}\\[10pt]
 
-\tocsection{4}{Conclusions \& Future Work}{sec:conclusions}\\[6pt]
-\tocsub{Hypothesis verdict}{sub:verdict}\\[3pt]
-\tocsub{Limitations}{sub:limitations}\\[3pt]
-\tocsub{Future work \& scalability}{sub:future}\\[3pt]
+\tocsection{4}{Conclusions \& Future Work}{sec:conclusions}\\[4pt]
+\tocsub{Hypothesis verdict}{sub:verdict}\\[2pt]
+\tocsub{Limitations}{sub:limitations}\\[2pt]
+\tocsub{Future work \& scalability}{sub:future}\\[2pt]
 \tocsub{Demo \& resources}{sub:demo}
 \end{column}
 
 \end{columns}
 
-\vspace{12pt}
+\vspace{8pt}
 {\color{tecblue!30}\rule{\linewidth}{0.4pt}}
-\vspace{4pt}
+\vspace{2pt}
 
 % Back-matter row -----------------------------------------------------------
 \begin{columns}[T,totalwidth=\textwidth]
@@ -103,8 +103,8 @@
 \end{column}
 \hspace{0.06\textwidth}
 \begin{column}{0.47\textwidth}
-\tocsection{6}{Appendix}{sec:appendix}\\[6pt]
-\tocsub{Acronyms}{sub:appendix-acronyms}\\[3pt]
+\tocsection{6}{Appendix}{sec:appendix}\\[4pt]
+\tocsub{Acronyms}{sub:appendix-acronyms}\\[2pt]
 \tocsub{Glossary}{sub:appendix-glossary}
 \end{column}
 \end{columns}
