@@ -178,23 +178,31 @@ For a $K$-class problem, with true positives ($\text{TP}_c$), false positives ($
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.49\textwidth}
 \begin{block}{Per-class\vphantom{Ag}}
+\begin{minipage}[t][3.4cm][s]{\linewidth}
 \centering\small
-\vspace{2pt}
-$\displaystyle \text{Precision}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FP}_c}$\\[6pt]
-$\displaystyle \text{Recall}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FN}_c}$\\[6pt]
+\vspace*{\fill}
+$\displaystyle \text{Precision}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FP}_c}$
+\vspace*{\fill}
+$\displaystyle \text{Recall}_c = \frac{\text{TP}_c}{\text{TP}_c+\text{FN}_c}$
+\vspace*{\fill}
 $\displaystyle F_{1,c} = 2\cdot\frac{\text{Precision}_c \cdot \text{Recall}_c}{\text{Precision}_c + \text{Recall}_c}$
-\vspace{2pt}
+\vspace*{\fill}
+\end{minipage}
 \end{block}
 \end{column}
 \hspace{0.02\textwidth}
 \begin{column}{0.49\textwidth}
 \begin{block}{Aggregates\vphantom{Ag}}
+\begin{minipage}[t][3.4cm][s]{\linewidth}
 \centering\small
-\vspace{2pt}
-$\displaystyle \text{Macro-}F_1 = \frac{1}{K}\sum_{c=1}^{K} F_{1,c}$\\[6pt]
-$\displaystyle \text{Weighted-}F_1 = \sum_{c=1}^{K}\frac{n_c}{N}\,F_{1,c}$\\[6pt]
+\vspace*{\fill}
+$\displaystyle \text{Macro-}F_1 = \frac{1}{K}\sum_{c=1}^{K} F_{1,c}$
+\vspace*{\fill}
+$\displaystyle \text{Weighted-}F_1 = \sum_{c=1}^{K}\frac{n_c}{N}\,F_{1,c}$
+\vspace*{\fill}
 $\displaystyle \text{Accuracy} = \frac{\sum_c \text{TP}_c}{N}$
-\vspace{2pt}
+\vspace*{\fill}
+\end{minipage}
 \end{block}
 \end{column}
 \end{columns}
