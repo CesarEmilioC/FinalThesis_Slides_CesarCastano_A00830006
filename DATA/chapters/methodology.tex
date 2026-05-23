@@ -26,9 +26,9 @@
 \begin{column}{0.50\textwidth}
 \textbf{\color{tecdark}Acquisition (controlled):}
 \begin{itemize}\small
-    \item iPhone 13, fixed lateral camera, 1920$\times$1080 @ 30 frames per second (FPS).
+    \item iPhone 13, fixed \alert{vertical orientation}, 1080$\times$1920 HD @ 30 frames per second (FPS).
     \item 6 players, skill range: 6th category $\rightarrow$ professional.
-    \item 484 clips, $\sim$2--4 s each.
+    \item 484 clips, \alert{exactly 3\,s} each.
 \end{itemize}
 \vspace{4pt}
 \textbf{\color{tecdark}Labeling protocol:}
@@ -131,10 +131,50 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \end{columns}
 \end{frame}
 
-\begin{frame}{What the model sees: joint trajectories over 90 frames}
+\begin{frame}{What the model sees: \texttt{(90,\,8)} tensor of joint coordinates}
+\hypertarget{sub:input}{}%
+\begin{columns}[T,onlytextwidth]
+
+% ---- LEFT: literal tensor preview ------------------------------------------
+\begin{column}{0.54\textwidth}
+\textbf{\color{tecdark}The literal input -- one tensor of shape \texttt{(90,\,8)} per clip:}\\[1pt]
+{\scriptsize z-scored per clip $\cdot$ illustrative values $\cdot$ \textbf{720} numbers total}
+
+\vspace{3pt}
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.02}
+{\ttfamily\scriptsize
+\begin{tabular}{r|rrrrrrrr}
+\textbf{f} & \textbf{p$_x$} & \textbf{p$_y$} & \textbf{s$_x$} & \textbf{s$_y$} & \textbf{e$_x$} & \textbf{e$_y$} & \textbf{w$_x$} & \textbf{w$_y$}\\
+\hline
+0  & $-$1.20 & $-$0.85 & $-$0.42 &    0.13 & $-$0.78 &    0.24 & $-$1.05 &    0.31\\
+1  & $-$1.15 & $-$0.81 & $-$0.38 &    0.17 & $-$0.70 &    0.30 & $-$0.95 &    0.40\\
+2  & $-$1.10 & $-$0.78 & $-$0.34 &    0.21 & $-$0.62 &    0.36 & $-$0.85 &    0.49\\
+\multicolumn{9}{c}{$\vdots$ \scriptsize (frames 3--43)}\\
+44 &    0.05 & $-$0.12 &    0.28 &    0.95 &    0.55 &    1.62 &    1.10 &    2.18\\
+45 &    0.07 & $-$0.10 &    0.31 &    0.98 &    0.58 &    1.65 &    1.13 &    2.21\\
+\multicolumn{9}{c}{$\vdots$ \scriptsize (frames 46--88)}\\
+89 &    0.85 &    0.42 &    0.71 &    0.18 &    1.08 &    0.55 &    0.92 &    0.81\\
+\end{tabular}
+}
+
+\vspace{4pt}
+{\scriptsize\textbf{Column legend:} \texttt{p}\,=\,pelvis (absolute), \texttt{s}\,=\,L-shoulder, \texttt{e}\,=\,R-elbow, \texttt{w}\,=\,R-wrist; subscripts $_x,_y$ = horizontal/vertical. The three upper-body joints are relative to the pelvis.}
+
+\vspace{3pt}
+\begin{infoBox}\scriptsize
+\textbf{The model sees all 8 columns jointly} (pelvis + shoulder + elbow + wrist) -- not just one. The plot on the right visualises a single column for intuition.
+\end{infoBox}
+\end{column}
+
+% ---- RIGHT: supporting trajectory plot ------------------------------------
+\begin{column}{0.44\textwidth}
 \centering
-\includegraphics[width=0.9\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[2pt]
-{\scriptsize\itshape Wrist trajectory of an \alert{Excellent} (grade 9) vs.\ \alert{Very Low} (grade 1) clip from the same player. Excellent: smooth arc ($\sigma\!=\!40.1$~px). Very Low: irregular oscillations ($\sigma\!=\!184.1$~px).}
+\includegraphics[width=\linewidth,height=0.56\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[2pt]
+{\scriptsize\itshape \textbf{One of the 8 columns visualised:} the wrist trajectory across the 90 frames, for two clips of the same player. \alert{Excellent} (grade 9): smooth arc ($\sigma\!=\!40.1$~px). \alert{Very Low} (grade 1): irregular oscillations ($\sigma\!=\!184.1$~px). The remaining 7 columns evolve in parallel.}
+\end{column}
+
+\end{columns}
 \end{frame}
 
 % --- Subsection: Models -----------------------------------------------------

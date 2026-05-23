@@ -82,11 +82,10 @@ A single shot (\emph{bandeja}), a single output (5-class quality score), one rep
 
 \begin{frame}{Contributions}
 \begin{enumerate}\small
-    \item A novel \alert{pose-based dataset} for paddle tennis: 484 \emph{bandeja} clips from 6 players, expert-graded (1--10) and mapped to 5 quality classes.
+    \item A novel \alert{pose-based dataset, publicly released as a benchmark} for racket-sport motion analysis: 484 \emph{bandeja} clips from 6 players, expert-graded (1--10) and mapped to 5 quality classes, with 2D joint trajectories, grades, and metadata.
     \item Comparative evaluation of three temporal models -- \alert{Bidirectional LSTM (BiLSTM)~\cite{Hochreiter1997LSTM}, Bidirectional Gated Recurrent Unit (BiGRU)~\cite{Cho2014GRU}, Temporal Convolutional Network (TCN)~\cite{Lea2017TCN}} -- under identical pipeline, dataset, and metrics.
     \item Two sensitivity analyses (loss/optimizer grid and 5-point split sweep) that quantify how the system reacts to design choices.
     \item A fully \alert{reproducible end-to-end pipeline} (video $\rightarrow$ pose $\rightarrow$ sequence $\rightarrow$ classification) released as open-source code.
-    \item Public release of the labeled dataset (2D joint trajectories + grades + metadata) as a benchmark for racket-sport motion analysis.
 \end{enumerate}
 \vspace{2pt}
 \begin{infoBox}\small
