@@ -62,6 +62,39 @@ A single shot (\emph{bandeja}), a single output (5-class quality score), one rep
 \end{columns}
 \end{frame}
 
+% --- Subsection: State of the Art --------------------------------------------
+\subsection{State of the Art}
+
+\begin{frame}{State of the art -- AI \& pose in sports}
+\hypertarget{sub:sota}{}%
+\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.22}
+\begin{center}
+\begin{tabular}{p{0.24\linewidth}p{0.40\linewidth}p{0.28\linewidth}}
+\toprule
+\textbf{Reference} & \textbf{What they do} & \textbf{How this thesis differs} \\
+\midrule
+\textbf{Pontes (2024)}\par\scriptsize\cite{paddle-statistics} -- Univ.\ Madeira MSc.\par\emph{Same sport.}
+& Real-time \alert{match statistics} for paddle tennis using computer vision (ball / player tracking, scoring).
+& We target \alert{quality scoring} of a single shot, not match-level statistics. \\
+\midrule
+\textbf{Liang \& Isakunovich (2023)}\par\scriptsize\cite{Liang2023Volleyball}\par\emph{Same approach.}
+& \alert{Skeleton-based} action recognition for volleyball, using joint sequences as input.
+& Same backbone (pose + temporal model); we predict \alert{ordinal quality}, not the action class. \\
+\midrule
+\textbf{Fukushima et al.\ (2024)}\par\scriptsize\cite{poseEstimation-sports}\par\emph{Sports Engineering.}
+& Validation study: 2D pose estimation is reliable enough to replace marker-based motion capture in sports.
+& We \alert{adopt} this validation and apply pose pipelines to \emph{bandeja} quality assessment. \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{2pt}
+\begin{infoBox}\scriptsize
+\textbf{Niche this thesis occupies:} \alert{pose-based} + \alert{recurrent} + \alert{ordinal quality} score, applied to a \alert{single paddle tennis shot}. To our knowledge, no prior work combines these four for paddle tennis.
+\end{infoBox}
+\end{frame}
+
 % --- Subsection: Research design ----------------------------------------------
 \subsection{Research Design}
 
