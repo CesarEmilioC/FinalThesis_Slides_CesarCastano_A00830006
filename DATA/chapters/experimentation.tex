@@ -15,6 +15,8 @@
 \setlength{\tabcolsep}{4pt}
 \small
 \begin{center}
+\textbf{Table 3.} \itshape BiLSTM stage progression on 80/20 stratified split (seed 42).\\[2pt]
+\upshape
 \begin{tabular}{l c c c}
 \toprule
  & \textbf{Stage 01} & \textbf{Stage 02} & \textbf{Stage 03 (final)} \\
@@ -35,7 +37,8 @@
 \vspace{4pt}
 \begin{infoBox}\small
 \textbf{Largest gain: $+8.6$ percentage points (pp)} came from \alert{pipeline changes} (5-class, interpolation, class weights) -- not from architecture.\\
-{\scriptsize\itshape pp = absolute difference between two percentages, e.g.\ $24.7-16.1=8.6$.}
+{\scriptsize\itshape pp = absolute difference between two percentages, e.g.\ $24.7-16.1=8.6$.}\\[2pt]
+{\scriptsize\color{tecdark}\textbf{Stage 03 is the documented final BiLSTM.} Two subsequent sensitivity analyses (granular parameter search) push the same architecture further -- shown shortly.}
 \end{infoBox}
 \end{frame}
 
@@ -120,6 +123,8 @@
 \setlength{\tabcolsep}{6pt}
 \small
 \begin{center}
+\textbf{Table 4.} \itshape Head-to-head comparison of the three temporal architectures (80/20 split, seed 42).\\[2pt]
+\upshape
 \begin{tabular}{l c c c}
 \toprule
 \textbf{Metric} & \textbf{BiLSTM (Stage 03)} & \textbf{BiGRU (Stage 01)} & \textbf{TCN (Stage 01)} \\
@@ -146,7 +151,8 @@ Spearman $\rho$ ($p$)  & 0.03 (0.76)  & 0.12 (0.26) & 0.14 (0.18) \\
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.55\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{./DATA/images/experimentation/lstm_test03_confusion.pdf}
+\includegraphics[width=\linewidth,height=0.72\textheight,keepaspectratio]{./DATA/images/experimentation/lstm_test03_confusion.pdf}\\[2pt]
+{\scriptsize\textbf{Figure 9.} \itshape Stage 03 BiLSTM confusion matrix on the 80/20 test fold ($n\!=\!97$).}
 \end{column}
 \begin{column}{0.43\textwidth}\small
 \textbf{\color{tecdark}Observations:}
@@ -169,6 +175,8 @@ Spearman $\rho$ ($p$)  & 0.03 (0.76)  & 0.12 (0.26) & 0.14 (0.18) \\
 \begin{column}{0.50\textwidth}
 \setlength{\tabcolsep}{4pt}\scriptsize
 \begin{center}
+\textbf{Table 5.} \itshape Sensitivity 1 -- 2$\times$2 loss/optimizer grid.\\[2pt]
+\upshape
 \begin{tabular}{l l c c c}
 \toprule
 \textbf{Loss} & \textbf{Opt.} & \textbf{Acc.} & \textbf{F1$_m$} & \textbf{$\rho$ ($p$)} \\
@@ -192,7 +200,7 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \begin{column}{0.48\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/experimentation/sensitivity_overlay.pdf}\\[2pt]
-{\scriptsize\itshape Validation-loss overlay -- SGD descends slower but reaches a lower plateau.}
+{\scriptsize\textbf{Figure 10.} \itshape Validation-loss overlay -- SGD descends slower but reaches a lower plateau.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -202,6 +210,8 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \begin{column}{0.50\textwidth}
 \setlength{\tabcolsep}{4pt}\scriptsize
 \begin{center}
+\textbf{Table 6.} \itshape Sensitivity 2 -- 5-point train-fraction sweep.\\[2pt]
+\upshape
 \begin{tabular}{c c c c c}
 \toprule
 \textbf{Train frac.} & \textbf{Train / Test} & \textbf{Acc.} & \textbf{F1$_m$} & \textbf{$\rho$ ($p$)} \\
@@ -210,12 +220,13 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \rowcolor{tecblue!10}
 \textbf{0.60} & 290 / 194 & \textbf{36.1\%} & 0.28 & \textbf{0.23 (0.001)} \\
 0.70 & 338 / 146 & 34.2\% & 0.28 & 0.14 (0.09) \\
-0.80\,(base) & 387 / 97 & 26.8\% & 0.21 & $-$0.02 (0.85) \\
+0.80\,(base)$^\dagger$ & 387 / 97 & \textbf{29.9\%} & 0.23 & 0.03 (0.76) \\
 0.90 & 435 / 49  & 28.6\% & 0.24 & 0.05 (0.71) \\
 \bottomrule
-\end{tabular}
+\end{tabular}\\[2pt]
+{\tiny $^\dagger$The 0.80 row reports the documented Stage 03 final (LSTM Test03); the four other fractions come from the \texttt{runSplitAnalysis} sweep. Both share architecture, hyperparameters, and stratified split (\texttt{random\_state=42}); the $\sim$3\,pp run-to-run variance between code paths is consistent with non-explicit RNG seeding at $N\!=\!484$.}
 \end{center}
-\vspace{4pt}
+\vspace{2pt}
 \textbf{\color{tecdark}Counter-intuitive:}
 \begin{itemize}\scriptsize
     \item Smaller training fractions \alert{win}.
@@ -226,7 +237,7 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \begin{column}{0.48\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/experimentation/split_trend.pdf}\\[2pt]
-{\scriptsize\itshape Accuracy and macro F1 vs.\ training fraction.}
+{\scriptsize\textbf{Figure 11.} \itshape Accuracy and macro F1 vs.\ training fraction.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -240,21 +251,21 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \begin{column}{0.45\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{./DATA/images/experimentation/split_confusion_06.pdf}\\[2pt]
-{\scriptsize\itshape Confusion matrix at the 60/40 split: broader coverage of minority classes.}
+{\scriptsize\textbf{Figure 12.} \itshape Confusion matrix at the 60/40 split: broader coverage of minority classes.}
 \end{column}
 \hspace{0.02\textwidth}
 \begin{column}{0.51\textwidth}
-\begin{alertblock}{The $+9$ percentage-point (pp) gain}
+\begin{alertblock}{The $+6$ percentage-point (pp) gain -- and the $\rho$ flip}
 \scriptsize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[1pt]
 \[
-\textstyle 26.8\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!=\!0.23,\; p\!=\!0.001
+\textstyle 29.9\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!:\;0.03\;\rightarrow\;\textbf{0.23},\quad p\!:\;0.76\;\rightarrow\;\textbf{0.001}
 \]
-\scriptsize\hspace*{0.5em}\textit{pp = percentage points: the absolute difference between two percentages, i.e.\ $36.1-26.8 = 9.3$.}
+\scriptsize\hspace*{0.5em}\textit{pp = percentage points: the absolute difference between two percentages, i.e.\ $36.1-29.9 = 6.2$.}
 \end{alertblock}
 \vspace{2pt}
 \begin{itemize}\scriptsize
     \item If the architecture / pipeline were the bottleneck, accuracy would be \alert{roughly flat across splits} -- ours is not.
-    \item Strong sensitivity of test metrics to the \emph{amount} of training data is the \alert{textbook signature} of a data-limited regime.
+    \item The Spearman $\rho$ \alert{crosses the conventional significance threshold} ($p\!<\!0.05$) only when the test fold is large enough -- this is the textbook signature of a \alert{data-limited regime}, not a methodological flaw.
     \item Three pipeline-level fixes (no new data): (i)~lower augmentation, (ii)~stronger L2 / dropout, (iii)~adopt XEnt + SGD.
 \end{itemize}
 \end{column}

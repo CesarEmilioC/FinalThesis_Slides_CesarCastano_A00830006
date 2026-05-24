@@ -14,7 +14,7 @@
 \hypertarget{sub:pipeline}{}%
 \centering
 \includegraphics[width=0.92\linewidth,height=0.7\textheight,keepaspectratio]{./DATA/images/methodology/methodologyPipeline.pdf}\\[2pt]
-{\scriptsize\itshape Seven modular stages, each independently inspectable and replaceable.}
+{\scriptsize\textbf{Figure 3.} \itshape Seven modular stages, each independently inspectable and replaceable.}
 \end{frame}
 
 % --- Subsection: Data -------------------------------------------------------
@@ -41,7 +41,7 @@
 \begin{column}{0.48\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\[2pt]
-{\scriptsize\itshape Six-stage data \& labeling workflow.}
+{\scriptsize\textbf{Figure 4.} \itshape Six-stage data \& labeling workflow.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -55,6 +55,8 @@ Raw grades (1--10) $\rightarrow$ 5 quality classes:
 c = \min\!\bigl(\lfloor(y-1)/2\rfloor,\,4\bigr)
 \]
 \begin{center}\scriptsize
+\textbf{Table 1.} \itshape Grade-to-class mapping and class support.\\[2pt]
+\upshape
 \begin{tabular}{lcc}
 \toprule
 \textbf{Class} & \textbf{Grades} & \textbf{N} \\
@@ -71,20 +73,21 @@ Excellent & 9--10 & 63  \\
 \end{center}
 \vspace{2pt}
 \begin{infoBox}\scriptsize
-Skewed toward Medium / High $\rightarrow$ \alert{balanced class weights} in training.
+\textbf{Why 5, not 10?} A granularity trade-off: with only 484 clips, the 10-class baseline (Stage 01) had \alert{minority cells $<\!30$ samples}, predictions collapsed onto grades 6--8, and accuracy was 16.1\%. Collapsing to 5 classes \alert{triples} the minimum class support, preserves coach intuition (Very Low $\to$ Excellent), and stays \alert{reversible} (deterministic floor mapping). Trade-off: we lose half the ordinal resolution but gain learnability. Skew toward Medium / High is counter-acted by \alert{balanced class weights} in training.
 \end{infoBox}
 \end{column}
 \begin{column}{0.46\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{./DATA/images/experimentation/label_distribution.pdf}\\[2pt]
-{\scriptsize\itshape Class distribution after the grade-to-class mapping.}
+{\scriptsize\textbf{Figure 5.} \itshape Class distribution after the grade-to-class mapping.}
 \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Dataset mosaic -- one frame per quality class}
 \centering
-\includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{./DATA/images/experimentation/dataset_mosaic.pdf}\\[4pt]
+\includegraphics[width=\linewidth,height=0.62\textheight,keepaspectratio]{./DATA/images/experimentation/dataset_mosaic.pdf}\\[2pt]
+{\scriptsize\textbf{Figure 6.} \itshape One representative frame per quality class.}\\[3pt]
 {\footnotesize\textbf{\color{tecdark}Watch a representative clip:}}\\[1pt]
 {\footnotesize
 \setlength{\tabcolsep}{5pt}
@@ -126,7 +129,7 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \begin{column}{0.46\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.65\textheight,keepaspectratio]{./DATA/images/methodology/poseEstimation_Example.pdf}\\[2pt]
-{\scriptsize\itshape Pelvis (green), shoulder (blue), elbow (yellow), wrist (red)~\cite{Cao2019OpenPose}.}
+{\scriptsize\textbf{Figure 7.} \itshape Pelvis (green), shoulder (blue), elbow (yellow), wrist (red)~\cite{Cao2019OpenPose}.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -167,7 +170,7 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \begin{column}{0.44\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.52\textheight,keepaspectratio]{./DATA/images/methodology/trajectory_wrist_comparison.pdf}\\[1pt]
-{\scriptsize\itshape \textbf{One of the 8 columns:} wrist trajectory across the 90 frames, same player. \alert{Excellent} (g.\,9): smooth arc ($\sigma\!=\!40.1$~px). \alert{Very Low} (g.\,1): irregular ($\sigma\!=\!184.1$~px). The other 7 columns evolve in parallel.}
+{\scriptsize\textbf{Figure 8.} \itshape \textbf{One of the 8 columns:} wrist trajectory across the 90 frames, same player. \alert{Excellent} (g.\,9): smooth arc ($\sigma\!=\!40.1$~px). \alert{Very Low} (g.\,1): irregular ($\sigma\!=\!184.1$~px). The other 7 columns evolve in parallel.}
 \end{column}
 
 \end{columns}
@@ -182,6 +185,8 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \renewcommand{\arraystretch}{1.05}
 \footnotesize
 \begin{center}
+\textbf{Table 2.} \itshape Three temporal architectures compared under one identical training envelope.\\[2pt]
+\upshape
 \begin{tabular}{l p{0.32\linewidth} p{0.38\linewidth}}
 \toprule
 \textbf{Model} & \textbf{Core block} & \textbf{Rationale} \\
@@ -207,6 +212,7 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \begin{frame}{Evaluation metrics -- categorical}
 \hypertarget{sub:metrics}{}%
 \footnotesize
+\textbf{\color{tecdark}Paradigm:} \alert{supervised} multi-class classification -- each clip carries one expert-assigned class label, the model learns to map pose sequences to those labels. The choice of metric matters because the task is \emph{ordinal} and the dataset is \emph{class-imbalanced}; the trio below makes both visible.\\[3pt]
 For a $K$-class problem, with true positives ($\text{TP}_c$), false positives ($\text{FP}_c$), and false negatives ($\text{FN}_c$) per class $c$:
 \vspace{2pt}
 \begin{columns}[T,onlytextwidth]
@@ -242,7 +248,7 @@ $\displaystyle \text{Accuracy} = \frac{\sum_c \text{TP}_c}{N}$\par
 \end{columns}
 \vspace{3pt}
 \begin{infoBox}\scriptsize
-The \alert{confusion matrix} ($K\times K$) reveals \emph{where} errors land -- critical for ordinal tasks where adjacent-class confusion is expected but extreme-class confusion is not.
+\textbf{Why these three:} per-class \alert{precision/recall/F1} exposes minority-class behaviour that accuracy alone hides; \alert{macro-F1} is our primary aggregate under class imbalance (treats every class equally regardless of count); the \alert{confusion matrix} reveals \emph{where} errors land -- critical for ordinal tasks where adjacent-class confusion is expected but extreme-class confusion is not.
 \end{infoBox}
 \end{frame}
 
@@ -260,18 +266,18 @@ Accuracy / F1 treat \emph{all} misclassifications as equally wrong. \alert{Spear
 \]
 \end{column}
 \begin{column}{0.42\textwidth}
-\begin{exampleblock}{Reading $\rho$}
-\small
-\begin{itemize}
-    \item $\rho \!=\! +1$: perfect ordinal agreement.
-    \item $\rho \!=\! 0$: no ordinal association.
-    \item $\rho \!=\! -1$: perfect inverse ordering.
-    \item Each $\rho$ paired with a $p$-value; \alert{$p\!<\!0.05$} required for statistical significance.
+\begin{exampleblock}{Reading $\rho$ \emph{in our project}}
+\scriptsize
+\begin{itemize}\itemsep1pt
+    \item \alert{$\rho = +1$:} the model orders every bandeja exactly like the coach -- an Excellent clip is always ranked above a High, which is above a Medium, etc. Predictions could still miss the exact class, but the \emph{ranking} is perfect.
+    \item \alert{$\rho \approx 0$:} the model's class predictions carry \emph{no} ordinal signal -- it labels Very-Low clips as Excellent as often as it labels them Very-Low. Same as predicting at random.
+    \item \alert{$\rho = -1$:} inverse ordering -- the model systematically calls bad shots good and vice versa.
+    \item Each $\rho$ is paired with a $p$-value; we require \alert{$p\!<\!0.05$} for the correlation to count as statistically meaningful, not noise from a small test fold.
 \end{itemize}
 \end{exampleblock}
-\vspace{4pt}
+\vspace{3pt}
 \begin{noteBox}\scriptsize
-A high $\rho$ with modest accuracy means the model preserves the quality gradient even when the exact class is wrong.
+A high $\rho$ with modest accuracy means the model preserves the \emph{quality gradient} even when the exact class is wrong -- exactly the regime our headline result demonstrates.
 \end{noteBox}
 \end{column}
 \end{columns}
