@@ -255,15 +255,14 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \hspace{0.02\textwidth}
 \begin{column}{0.51\textwidth}
 \begin{alertblock}{The $+6$ percentage-point (pp) gain -- and the $\rho$ flip}
-\scriptsize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[2pt]
-\centerline{$29.9\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!:\;0.03\!\rightarrow\!\textbf{0.23},\quad p\!:\;0.76\!\rightarrow\!\textbf{0.001}$}\\[2pt]
-\textit{pp = percentage points: absolute difference between two percentages ($36.1-29.9=6.2$).}
+\footnotesize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[6pt]
+\centerline{$29.9\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!:\;0.03\!\rightarrow\!\textbf{0.23},\quad p\!:\;0.76\!\rightarrow\!\textbf{0.001}$}\\[6pt]
+{\scriptsize\itshape pp = percentage points: absolute difference between two percentages ($36.1-29.9=6.2$).}
 \end{alertblock}
-\vspace{2pt}
+\vspace{4pt}
 \begin{itemize}\scriptsize
     \item If the architecture / pipeline were the bottleneck, accuracy would be \alert{roughly flat across splits} -- ours is not.
-    \item The Spearman $\rho$ \alert{crosses the conventional significance threshold} ($p\!<\!0.05$) only when the test fold is large enough -- this is the textbook signature of a \alert{data-limited regime}, not a methodological flaw.
-    \item Three pipeline-level fixes (no new data): (i)~lower augmentation, (ii)~stronger L2 / dropout, (iii)~adopt XEnt + SGD.
+    \item The Spearman $\rho$ \alert{crosses the conventional significance threshold} ($p\!<\!0.05$) only when the test fold is large enough -- the textbook signature of a \alert{data-limited regime}, not a methodological flaw.
 \end{itemize}
 \end{column}
 \end{columns}

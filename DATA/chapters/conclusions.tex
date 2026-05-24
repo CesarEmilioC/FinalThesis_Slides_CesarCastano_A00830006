@@ -13,8 +13,8 @@
 \begin{frame}{Hypothesis verdict: \emph{partial support}}
 \hypertarget{sub:verdict}{}%
 \begin{exampleblock}{Evidence in favor}
-\small
-\begin{itemize}
+\footnotesize
+\begin{itemize}\itemsep1pt
     \item End-to-end pipeline works (video $\rightarrow$ pose $\rightarrow$ sequence $\rightarrow$ 5-class score).
     \item All three architectures land \alert{well above the 20\% random baseline}.
     \item Confusion matrices show ordinal errors -- the gradient is being learned.
@@ -22,16 +22,15 @@
 \end{itemize}
 \end{exampleblock}
 \begin{alertblock}{Evidence against full validation}
-\small
-\begin{itemize}
+\footnotesize
+\begin{itemize}\itemsep1pt
     \item Documented final model (Stage 03): 29.9\% -- not deployment-ready.
     \item Generalization gap: $\sim$70~pp between training and test accuracy.
     \item Spearman $\rho$ at 80/20 not significant ($p\!>\!0.05$).
 \end{itemize}
 \end{alertblock}
-\vspace{2pt}
 \begin{infoBox}\scriptsize
-\textbf{\color{tecdark}On the labeling problem.} Quality grading is inherently subjective; even moderate label noise puts a hard ceiling on accuracy regardless of architecture~\cite{Frenay2014LabelNoise}. With single-evaluator labels and no $\kappa$/ICC, part of the $\sim$70~pp gap and the near-zero $\rho$ at 80/20 is unmeasured label noise -- closing it is a \emph{data \& labeling} problem.
+\textbf{\color{tecdark}On the labeling problem.} Quality grading is inherently subjective; even moderate label noise caps accuracy regardless of architecture~\cite{Frenay2014LabelNoise}. With single-evaluator labels and no $\kappa$/ICC, part of the $\sim$70~pp gap is unmeasured noise -- closing it is a \emph{data \& labeling} problem.
 \end{infoBox}
 \end{frame}
 
