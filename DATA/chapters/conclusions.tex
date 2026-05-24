@@ -31,7 +31,7 @@
 \end{alertblock}
 \vspace{2pt}
 \begin{infoBox}\scriptsize
-\textbf{\color{tecdark}On the labeling problem.} Quality grading of athletic technique is inherently subjective -- two coaches grading the same clip rarely agree perfectly. The literature shows that even moderate label noise puts a hard ceiling on the accuracy a classifier can reach, regardless of architecture~\cite{Frenay2014LabelNoise}. With single-evaluator labels and no inter-rater agreement metric (no Cohen's $\kappa$, no ICC), part of our $\sim$70~pp generalization gap and the near-zero $\rho$ at 80/20 are attributable to label noise we cannot currently measure. \emph{Proof of concept:} the method works at the present scale; closing the remaining gap is a data and labeling problem.
+\textbf{\color{tecdark}On the labeling problem.} Quality grading is inherently subjective; even moderate label noise puts a hard ceiling on accuracy regardless of architecture~\cite{Frenay2014LabelNoise}. With single-evaluator labels and no $\kappa$/ICC, part of the $\sim$70~pp gap and the near-zero $\rho$ at 80/20 is unmeasured label noise -- closing it is a \emph{data \& labeling} problem.
 \end{infoBox}
 \end{frame}
 

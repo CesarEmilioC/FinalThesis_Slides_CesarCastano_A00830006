@@ -12,10 +12,11 @@
 
 \begin{frame}{LSTM evolution: Stage 01 $\rightarrow$ Stage 02 $\rightarrow$ Stage 03}
 \hypertarget{sub:evolution}{}%
-\setlength{\tabcolsep}{4pt}
-\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{0.95}
+\footnotesize
 \begin{center}
-\textbf{Table 3.} \itshape BiLSTM stage progression on 80/20 stratified split (seed 42).\\[2pt]
+\textbf{Table 3.} \itshape BiLSTM stage progression on 80/20 stratified split (seed 42).\\[1pt]
 \upshape
 \begin{tabular}{l c c c}
 \toprule
@@ -34,11 +35,9 @@
 \bottomrule
 \end{tabular}
 \end{center}
-\vspace{4pt}
-\begin{infoBox}\small
-\textbf{Largest gain: $+8.6$ percentage points (pp)} came from \alert{pipeline changes} (5-class, interpolation, class weights) -- not from architecture.\\
-{\scriptsize\itshape pp = absolute difference between two percentages, e.g.\ $24.7-16.1=8.6$.}\\[2pt]
-{\scriptsize\color{tecdark}\textbf{Stage 03 is the documented final BiLSTM.} Two subsequent sensitivity analyses (granular parameter search) push the same architecture further -- shown shortly.}
+\vspace{2pt}
+\begin{infoBox}\scriptsize
+\textbf{Largest gain: $+8.6$ pp} came from \alert{pipeline changes} (5-class, interpolation, class weights), not from architecture. \textbf{\color{tecdark}Stage 03 is the documented final BiLSTM}; two sensitivity analyses push it further (next slides).
 \end{infoBox}
 \end{frame}
 
@@ -256,11 +255,9 @@ MSE     & SGD(0.9)        & 27.8\% & 0.23 & 0.07 (0.50) \\
 \hspace{0.02\textwidth}
 \begin{column}{0.51\textwidth}
 \begin{alertblock}{The $+6$ percentage-point (pp) gain -- and the $\rho$ flip}
-\scriptsize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[1pt]
-\[
-\textstyle 29.9\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!:\;0.03\;\rightarrow\;\textbf{0.23},\quad p\!:\;0.76\;\rightarrow\;\textbf{0.001}
-\]
-\scriptsize\hspace*{0.5em}\textit{pp = percentage points: the absolute difference between two percentages, i.e.\ $36.1-29.9 = 6.2$.}
+\scriptsize Same architecture, same labels, same hyperparameters -- only the train/test fraction changed.\\[2pt]
+\centerline{$29.9\%\;\Longrightarrow\;\textbf{36.1\%},\quad \rho\!:\;0.03\!\rightarrow\!\textbf{0.23},\quad p\!:\;0.76\!\rightarrow\!\textbf{0.001}$}\\[2pt]
+\textit{pp = percentage points: absolute difference between two percentages ($36.1-29.9=6.2$).}
 \end{alertblock}
 \vspace{2pt}
 \begin{itemize}\scriptsize

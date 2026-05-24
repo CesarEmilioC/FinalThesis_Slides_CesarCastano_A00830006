@@ -73,7 +73,7 @@ Excellent & 9--10 & 63  \\
 \end{center}
 \vspace{2pt}
 \begin{infoBox}\scriptsize
-\textbf{Why 5, not 10?} A granularity trade-off: with only 484 clips, the 10-class baseline (Stage 01) had \alert{minority cells $<\!30$ samples}, predictions collapsed onto grades 6--8, and accuracy was 16.1\%. Collapsing to 5 classes \alert{triples} the minimum class support, preserves coach intuition (Very Low $\to$ Excellent), and stays \alert{reversible} (deterministic floor mapping). Trade-off: we lose half the ordinal resolution but gain learnability. Skew toward Medium / High is counter-acted by \alert{balanced class weights} in training.
+\textbf{Why 5, not 10?} The 10-class baseline collapsed onto grades 6--8 (16.1\% acc.). Five classes \alert{triple} the minimum class support, preserve coach intuition, and stay \alert{reversible}; residual skew is offset by \alert{balanced class weights}.
 \end{infoBox}
 \end{column}
 \begin{column}{0.46\textwidth}
@@ -212,8 +212,8 @@ Mean interpolation rate: \textbf{11.6\%} (consistent across classes).
 \begin{frame}{Evaluation metrics -- categorical}
 \hypertarget{sub:metrics}{}%
 \footnotesize
-\textbf{\color{tecdark}Paradigm:} \alert{supervised} multi-class classification -- each clip carries one expert-assigned class label, the model learns to map pose sequences to those labels. The choice of metric matters because the task is \emph{ordinal} and the dataset is \emph{class-imbalanced}; the trio below makes both visible.\\[3pt]
-For a $K$-class problem, with true positives ($\text{TP}_c$), false positives ($\text{FP}_c$), and false negatives ($\text{FN}_c$) per class $c$:
+\textbf{\color{tecdark}Paradigm:} \alert{supervised} multi-class classification. The task is \emph{ordinal} and \emph{class-imbalanced}, so we report per-class metrics plus two aggregates.\\[2pt]
+{\scriptsize For $K$ classes, with TP$_c$, FP$_c$, FN$_c$ per class $c$:}
 \vspace{2pt}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.49\textwidth}
@@ -248,7 +248,7 @@ $\displaystyle \text{Accuracy} = \frac{\sum_c \text{TP}_c}{N}$\par
 \end{columns}
 \vspace{3pt}
 \begin{infoBox}\scriptsize
-\textbf{Why these three:} per-class \alert{precision/recall/F1} exposes minority-class behaviour that accuracy alone hides; \alert{macro-F1} is our primary aggregate under class imbalance (treats every class equally regardless of count); the \alert{confusion matrix} reveals \emph{where} errors land -- critical for ordinal tasks where adjacent-class confusion is expected but extreme-class confusion is not.
+\textbf{Why these three:} per-class F1 surfaces minority-class behaviour; \alert{macro-F1} is our primary aggregate under imbalance; the \alert{confusion matrix} shows \emph{where} errors land -- the key check on an ordinal task.
 \end{infoBox}
 \end{frame}
 
@@ -264,21 +264,21 @@ Accuracy / F1 treat \emph{all} misclassifications as equally wrong. \alert{Spear
 \[
 \rho \;=\; \frac{\sum_i (R(y_i)\!-\!\overline{R(y)})\,(R(\hat{y}_i)\!-\!\overline{R(\hat{y})})}{\sqrt{\sum_i(R(y_i)\!-\!\overline{R(y)})^2 \sum_i(R(\hat{y}_i)\!-\!\overline{R(\hat{y})})^2}}
 \]
+\vspace{-4pt}
+\begin{noteBox}\scriptsize
+A high $\rho$ with modest accuracy means the model preserves the \emph{quality gradient} even when the exact class is wrong -- the regime our headline result demonstrates.
+\end{noteBox}
 \end{column}
 \begin{column}{0.42\textwidth}
 \begin{exampleblock}{Reading $\rho$ \emph{in our project}}
 \scriptsize
 \begin{itemize}\itemsep1pt
-    \item \alert{$\rho = +1$:} the model orders every bandeja exactly like the coach -- an Excellent clip is always ranked above a High, which is above a Medium, etc. Predictions could still miss the exact class, but the \emph{ranking} is perfect.
-    \item \alert{$\rho \approx 0$:} the model's class predictions carry \emph{no} ordinal signal -- it labels Very-Low clips as Excellent as often as it labels them Very-Low. Same as predicting at random.
-    \item \alert{$\rho = -1$:} inverse ordering -- the model systematically calls bad shots good and vice versa.
-    \item Each $\rho$ is paired with a $p$-value; we require \alert{$p\!<\!0.05$} for the correlation to count as statistically meaningful, not noise from a small test fold.
+    \item \alert{$\rho = +1$:} model orders shots exactly like the coach -- ranking perfect, exact class can still miss.
+    \item \alert{$\rho \approx 0$:} predictions carry \emph{no} ordinal signal -- same as random.
+    \item \alert{$\rho = -1$:} systematic inverse ordering -- good called bad and vice versa.
+    \item Each $\rho$ comes with a $p$-value; we require \alert{$p\!<\!0.05$} to call it meaningful.
 \end{itemize}
 \end{exampleblock}
-\vspace{3pt}
-\begin{noteBox}\scriptsize
-A high $\rho$ with modest accuracy means the model preserves the \emph{quality gradient} even when the exact class is wrong -- exactly the regime our headline result demonstrates.
-\end{noteBox}
 \end{column}
 \end{columns}
 \end{frame}
