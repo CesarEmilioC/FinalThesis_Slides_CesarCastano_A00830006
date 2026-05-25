@@ -61,7 +61,7 @@
     \item Basic BiLSTM 128/64
 \end{itemize}
 \vspace{4pt}
-\textbf{Result:} 16.1\%, F1 0.09\\
+\textbf{Result:} 16.1\%, Macro F1 0.09\\
 \textbf{Pain:} predictions collapsed\\to grades 6--8.
 \end{minipage}
 \end{block}
@@ -82,7 +82,7 @@
     \item \alert{Balanced class weights}
 \end{itemize}
 \vspace{4pt}
-\textbf{Result:} 24.7\% (\textbf{$+8.6$ pp}), F1 0.23\\
+\textbf{Result:} 24.7\% (\textbf{$+8.6$ pp}), Macro F1 0.23\\
 \textbf{Pain:} overfitting onset\\(train 66\%, val 34.6\%).
 \end{minipage}
 \end{block}
@@ -103,7 +103,7 @@
     \item \alert{ReduceLROnPlateau}
 \end{itemize}
 \vspace{4pt}
-\textbf{Result:} 29.9\% (\textbf{$+5.2$ pp}), F1 0.23\\
+\textbf{Result:} 29.9\% (\textbf{$+5.2$ pp}), Macro F1 0.23\\
 \textbf{Pain:} train$\to$test gap\\still $\sim\!70$ pp.
 \end{minipage}
 \end{block}
