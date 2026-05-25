@@ -33,7 +33,7 @@
 \vspace{4pt}
 \textbf{\color{tecdark}Labeling protocol:}
 \begin{itemize}\small
-    \item Each clip graded \alert{1--10} by a single expert coach.
+    \item Each clip graded \alert{1--10} by a single expert coach (\emph{raw grade stored}; 5-class mapping is a pipeline step, slide~12).
     \item Grade embedded in filename (\texttt{\_grade}).
     \item Two evaluators: K.~Garc\'ia (CO), S.~Fasciolo (AR).
 \end{itemize}
@@ -50,7 +50,7 @@
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.52\textwidth}
 \small
-Raw grades (1--10) $\rightarrow$ 5 quality classes:
+Dataset stores \alert{raw expert grades 1--10}; the pipeline maps each grade to one of 5 quality classes at train time:
 \[
 c = \min\!\bigl(\lfloor(y-1)/2\rfloor,\,4\bigr)
 \]
