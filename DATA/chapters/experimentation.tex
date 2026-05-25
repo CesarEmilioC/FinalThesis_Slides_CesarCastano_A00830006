@@ -27,13 +27,15 @@
 \textbf{Joints / feats} & 3 / 6                & 4 / 8                & 4 / 8 \\
 \textbf{Interpolation}  & --                   & linear               & linear \\
 \textbf{Class weights}  & --                   & balanced             & balanced \\
+\textbf{Hidden units}\textsuperscript{*}   & 128 / 64             & 128 / 64             & \alert{64 / 32} \\
 \textbf{Regularization} & --                   & --                   & L2 ($10^{-4}$), dropout 0.40/0.35 \\
 \textbf{Augmentation}   & --                   & --                   & Gaussian noise $\sigma\!=\!0.02$, $\times 2$ \\
 \midrule
 \textbf{Accuracy}       & 16.1\%               & 24.7\%               & \textbf{29.9\%} \\
 \textbf{Macro F1}       & 0.09                 & 0.23                 & 0.23 \\
 \bottomrule
-\end{tabular}
+\end{tabular}\\[2pt]
+{\scriptsize\itshape \textsuperscript{*}All three stages use a \alert{2-layer stacked Bidirectional LSTM}; only the hidden-unit sizes per layer change.}
 \end{center}
 \vspace{2pt}
 \begin{infoBox}\scriptsize
@@ -41,78 +43,10 @@
 \end{infoBox}
 \end{frame}
 
-% --- NEW: Stage progression explanation ------------------------------------
-\begin{frame}[c]{Stage progression: what changed and why}
-\setlength{\columnsep}{8pt}
-\begin{columns}[T,onlytextwidth]
-
-% --- Stage 01 -------------------------------------------------------------
-\begin{column}{0.32\textwidth}
-\begin{block}{\centering\strut Stage 01}
-\begin{minipage}[t]{\linewidth}
-\scriptsize
-\centerline{\itshape\color{slidegray} Baseline}\vspace{4pt}
-\textbf{Setup}
-\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
-    \item 280 clips, 5 players
-    \item \alert{10-class} output (raw 1--10)
-    \item 3 joints, 6 features
-    \item No interp., no class weights
-    \item Basic BiLSTM 128/64
-\end{itemize}
-\vspace{4pt}
-\textbf{Result:} 16.1\%, Macro F1 0.09\\
-\textbf{Pain:} predictions collapsed\\to grades 6--8.
-\end{minipage}
-\end{block}
-\end{column}
-
-% --- Stage 02 -------------------------------------------------------------
-\begin{column}{0.32\textwidth}
-\begin{block}{\centering\strut Stage 02}
-\begin{minipage}[t]{\linewidth}
-\scriptsize
-\centerline{\itshape\color{slidegray} Pipeline upgrades}\vspace{4pt}
-\textbf{What was added}
-\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
-    \item \alert{484 clips, 6 players}
-    \item \alert{5-class} grouping
-    \item \alert{4 joints, 8 feat.} (+ shoulder)
-    \item Linear \alert{interpolation}
-    \item \alert{Balanced class weights}
-\end{itemize}
-\vspace{4pt}
-\textbf{Result:} 24.7\% (\textbf{$+8.6$ pp}), Macro F1 0.23\\
-\textbf{Pain:} overfitting onset\\(train 66\%, val 34.6\%).
-\end{minipage}
-\end{block}
-\end{column}
-
-% --- Stage 03 -------------------------------------------------------------
-\begin{column}{0.32\textwidth}
-\begin{block}{\centering\strut Stage 03}
-\begin{minipage}[t]{\linewidth}
-\scriptsize
-\centerline{\itshape\color{slidegray} Regularization}\vspace{4pt}
-\textbf{What was added}
-\begin{itemize}\itemsep1pt\setlength{\topsep}{1pt}
-    \item Smaller BiLSTM \alert{64/32}
-    \item Dropout \alert{0.40 / 0.35}
-    \item \alert{L2} ($\lambda\!=\!10^{-4}$)
-    \item \alert{Gaussian noise} ($\sigma\!=\!0.02$, $\times 2$)
-    \item \alert{ReduceLROnPlateau}
-\end{itemize}
-\vspace{4pt}
-\textbf{Result:} 29.9\% (\textbf{$+5.2$ pp}), Macro F1 0.23\\
-\textbf{Pain:} train$\to$test gap\\still $\sim\!70$ pp.
-\end{minipage}
-\end{block}
-\end{column}
-
-\end{columns}
-\vspace{4pt}
-{\scriptsize\itshape Each stage isolates a class of improvements (data, features, regularization) so the contribution of every change is traceable.}
-\end{frame}
+% --- Stage progression frame removed: redundant with the Table-3 frame above.
+%     The diagnostic narrative (why each stage's interventions, what pain
+%     each one fixed) is preserved in others/QA_BANK.md and the deep dive
+%     for Q&A preparation, but does not need its own slide.
 
 % --- Subsection: Model Comparison ------------------------------------------
 \subsection{Model Comparison}
