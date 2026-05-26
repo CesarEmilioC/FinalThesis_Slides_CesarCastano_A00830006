@@ -12,26 +12,55 @@
 
 \begin{frame}{Hypothesis verdict: \emph{partial support}}
 \hypertarget{sub:verdict}{}%
+\begin{columns}[T,onlytextwidth]
+
+% --- LEFT: Evidence summary + label-noise caveat -------------------------
+\begin{column}{0.50\textwidth}
 \begin{exampleblock}{Evidence in favor}
-\footnotesize
+\scriptsize
 \begin{itemize}\itemsep1pt
-    \item End-to-end pipeline works (video $\rightarrow$ pose $\rightarrow$ sequence $\rightarrow$ 5-class score).
-    \item All three architectures land \alert{well above the 20\% random baseline}.
-    \item Confusion matrices show ordinal errors -- the gradient is being learned.
-    \item Multi-split sweep: 60/40 reaches \textbf{36.1\%}, $\rho\!=\!0.23$ ($p\!=\!0.001$).
+    \item Pipeline works end-to-end (video $\rightarrow$ score).
+    \item All 3 models \alert{$>$ 20\% random baseline}.
+    \item Errors on \alert{adjacent classes} (ordinal).
+    \item 60/40 split: \textbf{36.1\%}, $\rho\!=\!0.23$ ($p\!=\!0.001$).
 \end{itemize}
 \end{exampleblock}
+
 \begin{alertblock}{Evidence against full validation}
-\footnotesize
+\scriptsize
 \begin{itemize}\itemsep1pt
-    \item Documented final model (Stage 03): 29.9\% -- not deployment-ready.
-    \item Generalization gap: $\sim$70~pp between training and test accuracy.
-    \item Spearman $\rho$ at 80/20 not significant ($p\!>\!0.05$).
+    \item Stage 03: 29.9\% -- not deployment-ready.
+    \item Train$\to$test gap: $\sim$70~pp.
+    \item $\rho$ at 80/20 not significant ($p\!>\!0.05$).
 \end{itemize}
 \end{alertblock}
-\begin{infoBox}\scriptsize
-\textbf{\color{tecdark}On the labeling problem.} Quality grading is inherently subjective; even moderate label noise caps accuracy regardless of architecture~\cite{Frenay2014LabelNoise}. With single-evaluator labels and no $\kappa$/ICC, part of the $\sim$70~pp gap is unmeasured noise -- closing it is a \emph{data \& labeling} problem.
+
+\begin{infoBox}\tiny
+\textbf{\color{tecdark}Label noise caveat.} Single-evaluator labels + no $\kappa$/ICC $\Rightarrow$ part of the $\sim$70~pp gap is unmeasured noise~\cite{Frenay2014LabelNoise}. Closing it is a \emph{data \& labeling} problem.
 \end{infoBox}
+\end{column}
+
+% --- RIGHT: Research-question outcomes table -----------------------------
+\begin{column}{0.48\textwidth}
+\centering
+\textbf{\color{tecdark}\small Research Question outcomes}\\[3pt]
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.20}
+\scriptsize
+\begin{tabular}{@{}r c p{0.66\linewidth}@{}}
+\toprule
+\textbf{RQ} & & \textbf{Outcome} \\
+\midrule
+\textbf{1} & \textbf{\color{tecgreen}yes}     & Pose accuracy reliable across skill levels (11.6\% uniform interp; no class bias). \\
+\textbf{2} & \textbf{\color{tecorange}partial} & 29.9\% exact-class but $\rho\!=\!0.23$ ($p\!=\!0.001$) at 60/40 split. \\
+\textbf{3} & \textbf{\color{tecorange}partial} & $\sim$70~pp train$\to$test gap; cross-player (LOPO) is Future Work. \\
+\textbf{4} & \textbf{\color{tecorange}partial} & Pipeline shot- \& sport-agnostic; weights bandeja-specific. \\
+\bottomrule
+\end{tabular}\\[6pt]
+{\tiny\itshape One \textbf{\color{tecgreen}yes} + three \textbf{\color{tecorange}partial} $\Rightarrow$ \textbf{partial support} verdict.}
+\end{column}
+
+\end{columns}
 \end{frame}
 
 % --- Subsection: Limitations ------------------------------------------------
