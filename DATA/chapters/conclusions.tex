@@ -98,6 +98,35 @@
     \item Reduce augmentation factor; strengthen L2 / dropout (per Sensitivity~2).
     \item Try ordinal-aware losses, attention on top of BiLSTM~\cite{Vaswani2017Attention}, or Spatio-Temporal Graph Convolutional Networks (ST-GCN)~\cite{Yan2018STGCN}.
 \end{itemize}
+\end{frame}
+
+% --- NEW: Deployment & longitudinal evaluation ----------------------------
+\begin{frame}{Deployment \& longitudinal evaluation}
+\hypertarget{sub:deployment}{}%
+\begin{columns}[T,onlytextwidth]
+
+\begin{column}{0.55\textwidth}
+\textbf{\color{tecdark}Per-user adaptation \& deployment:}
+\begin{itemize}\scriptsize\itemsep1pt
+    \item \alert{User profiles}: per-player baselines normalize habitual patterns; isolate the technique signal.
+    \item \alert{Amateur deployment}: a player tracks technique evolution session-by-session via the histogram of predicted classes.
+    \item \alert{Professional deployment}: per-clip joint-trajectory visualizations (right) for coach-level inspection.
+\end{itemize}
+\vspace{3pt}
+\textbf{\color{tecdark}Evidence of impact:}
+\begin{itemize}\scriptsize\itemsep1pt
+    \item \alert{Longitudinal metric}: shift in the per-session predicted-class distribution $=$ quantitative proxy for improvement over time.
+    \item Answers: \emph{is the system actually helping the player improve?}
+\end{itemize}
+\end{column}
+
+\begin{column}{0.43\textwidth}
+\centering
+\includegraphics[width=\linewidth,height=0.55\textheight,keepaspectratio]{./DATA/images/conclusions/trajectory_temporal_example.png}\\[2pt]
+{\scriptsize\textbf{Figure 13.} \itshape Example per-clip joint-trajectory visualization the open-source pipeline already produces (Excellent-grade bandeja). Foundation for the player-facing diagnostics described on the left.}
+\end{column}
+
+\end{columns}
 \vspace{4pt}
 \begin{infoBox}\scriptsize
 \textbf{\color{tecdark}Research direction (the subtitle of this thesis):} extend the \emph{quality assessment} pipeline into a \alert{motion recommendation system} that issues actionable, phase-level, movement-related feedback (e.g., wrist angle, trunk rotation, impact timing) -- the natural next research step on top of the foundation this thesis delivers.
