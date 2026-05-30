@@ -23,24 +23,24 @@
 \begin{frame}{Data collection \& labeling}
 \hypertarget{sub:dataset}{}%
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.50\textwidth}
+\begin{column}{0.56\textwidth}
 \textbf{\color{tecdark}Acquisition (controlled):}
-\begin{itemize}\small
+\begin{itemize}\small\itemsep1pt
     \item iPhone 13, fixed \alert{vertical orientation}, 1080$\times$1920 HD @ 30 frames per second (FPS).
     \item 6 players: 5 right-handed + 1 left-handed (mirrored in preprocessing); skill: 6th category $\rightarrow$ Pro; court positions: 4 backhand, 2 right-hand.
     \item 484 clips, \alert{exactly 3\,s} each (90 frames @ 30~FPS).
 \end{itemize}
-\vspace{4pt}
+\vspace{3pt}
 \textbf{\color{tecdark}Labeling protocol:}
-\begin{itemize}\small
+\begin{itemize}\small\itemsep1pt
     \item Each clip graded \alert{1--10} by a single expert coach (\emph{raw grade stored}; 5-class mapping is a pipeline step, slide~12).
     \item Grade embedded in filename (\texttt{\_grade}).
     \item Two evaluators: K.~Garc\'ia (CO), S.~Fasciolo (AR).
 \end{itemize}
 \end{column}
-\begin{column}{0.48\textwidth}
+\begin{column}{0.42\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.68\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\[2pt]
+\includegraphics[width=\linewidth,height=0.66\textheight,keepaspectratio]{./DATA/images/methodology/dataCollection_Pipeline.pdf}\\[2pt]
 {\scriptsize\textbf{Figure 4.} \itshape Six-stage data \& labeling workflow.}
 \end{column}
 \end{columns}

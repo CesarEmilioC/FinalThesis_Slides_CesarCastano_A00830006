@@ -74,7 +74,7 @@
     \item \textbf{Class balance at collection}: asking a player to execute a bandeja \emph{of grade X} on demand is essentially infeasible -- balancing must happen downstream (class weights, augmentation), not upstream.
     \item \textbf{Single-evaluator labels}: no inter-rater reliability computed (no Cohen's $\kappa$ or Intraclass Correlation Coefficient, ICC).
     \item \textbf{2D, 4 joints, 8 features}: no joint angles, no angular velocities, no lower-body, no depth.
-    \item \textbf{Player leakage}: stratified split mixes the same player across train and test (no Leave-One-Player-Out, LOPO, evaluation yet).
+    \item \textbf{Player leakage}: 80/20 mixes clips of same player across folds. LOPO deferred (only 6 players with uneven clip counts $34$--$176$ $\Rightarrow$ unstable folds). FW priority 4.
     \item \textbf{Recording setup}: single vertical smartphone view $\Rightarrow$ self-occlusion + motion blur $\Rightarrow$ 11.6\% interpolation rate.
     \item \textbf{Categorical loss}: cross-entropy ignores the ordinal structure of the 5 quality classes.
 \end{itemize}
@@ -125,7 +125,7 @@
 \begin{itemize}\small
     \item Team sports (multi-person pose).
     \item Gymnastics, martial arts (codified scoring).
-    \item Physical rehabilitation, ergonomics.
+    \item Healthcare \& rehab: post-op recovery, \alert{geriatric care} (fall-risk, gait, balance), ergonomics.
     \item Dance, performing arts.
 \end{itemize}
 \vspace{8pt}
