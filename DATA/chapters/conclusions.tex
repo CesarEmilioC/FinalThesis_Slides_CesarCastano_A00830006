@@ -55,7 +55,7 @@
 \textbf{1} & \textbf{\color{tecgreen}yes}     & Pose accuracy reliable across skill levels (11.6\% uniform interp; no class bias). \\
 \textbf{2} & \textbf{\color{tecorange}partial} & 29.9\% exact-class but $\rho\!=\!0.23$ ($p\!=\!0.001$) at 60/40 split. \\
 \textbf{3} & \textbf{\color{tecorange}partial} & $\sim$70~pp train$\to$test gap; cross-player (LOPO) is Future Work. \\
-\textbf{4} & \textbf{\color{tecorange}partial} & Pipeline shot- \& sport-agnostic; weights bandeja-specific. \\
+\textbf{4} & \textbf{\color{tecorange}partial} & Pipeline architecturally portable; weights bandeja-specific. Extension requires empirical validation per new shot. \\
 \bottomrule
 \end{tabular}\\[6pt]
 {\tiny\itshape One \textbf{\color{tecgreen}yes} + three \textbf{\color{tecorange}partial} $\Rightarrow$ \textbf{partial support} verdict.}
@@ -71,6 +71,7 @@
 \hypertarget{sub:limitations}{}%
 \begin{itemize}\small
     \item \textbf{Dataset size}: 484 clips across 6 players -- minority-class supports as low as 8 and 13 in the test set.
+    \item \textbf{Class balance at collection}: asking a player to execute a bandeja \emph{of grade X} on demand is essentially infeasible -- balancing must happen downstream (class weights, augmentation), not upstream.
     \item \textbf{Single-evaluator labels}: no inter-rater reliability computed (no Cohen's $\kappa$ or Intraclass Correlation Coefficient, ICC).
     \item \textbf{2D, 4 joints, 8 features}: no joint angles, no angular velocities, no lower-body, no depth.
     \item \textbf{Player leakage}: stratified split mixes the same player across train and test (no Leave-One-Player-Out, LOPO, evaluation yet).
